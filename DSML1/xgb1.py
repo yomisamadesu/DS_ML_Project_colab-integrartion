@@ -348,9 +348,7 @@ print(sector_explanations[[
 ]].to_string(index=False))
 print()
 
-# =========================================================
-# 17. EXPORT FILES
-# =========================================================
+# export files
 naics_matches.to_csv("nber_naics_readable_mapping.csv", index=False)
 results.to_csv("xgboost_scenario_predictions_by_sector_year.csv", index=False)
 sector_summary.to_csv("sector_summary_with_readable_naics.csv", index=False)
