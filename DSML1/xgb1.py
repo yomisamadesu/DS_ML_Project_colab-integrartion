@@ -14,10 +14,17 @@ imf = pd.read_csv('Datasets/IMF.csv', encoding = "latin-1")
 wb = pd.read_csv('Datasets/API_TX.VAL.MANF.ZS.UN_DS2_en_csv_v2_7563.csv', skiprows =4)
 
 # naics sector name retrieval
-naics_file = pd.read_excel('/Users/brandon/Documents/DSMLProject/DS_ML_Project_colab-integration/DSML1/Datasets/2022-NAICS-Codes-listed-numerically-2-Digit-through-6-Digit.xlsx',
+naics_file = pd.read_excel('Datasets/2022-NAICS-Codes-listed-numerically-2-Digit-through-6-Digit.xlsx',
 sheet_name = "Two-Six Digit NAICS")
+naics_file.columns = naics_file.columns.str.strip()
 
-# Search for  Manufactuuring codes
+# Rename naics columns
+naics_file = naics_file.rename(columns={
+    "2022 NAICS US   Code": "naics_code",
+    "2022 NAICS US Title": "naics_title"
+})
+
+# Search for  Manufacturing codes
 def best_naics_match(code, naics_lookup):
     code = str(code).strip()
     if code in naics_lookup:
@@ -118,7 +125,7 @@ naics_file = naics_file.rename(columns={
 naics_file["naics_code"] = naics_file["naics_code"].astype(str).str.strip()
 naics_file["naics_title"] = naics_file["naics_title"].astype(str).str.strip()
 
-file = naics_file[["naics_code", "naics_title"]].drop_dupplicates()
+file = naics_file[["naics_code", "naics_title"]].drop_duplicates()
 lookup = dict(zip(naics_file["naics_code"], naics_file["naics_title"]))
 
 # data preparation
@@ -177,9 +184,9 @@ imf_usa = imf_usa[imf_usa["WEO Subject Code"].isin(["NGDPDPC","PCPIEPCH", "NGDP_
 year_cols_imf = [c for c in imf_usa.columns if str(c).isdigit() and len(str(c)) == 4]
 
 
-gdp_pc = melt_imf(imf_usa, "NGDPDPC", "gdp_per_capita")
-inflation = melt_imf(imf_usa, "PCPIEPCH", "inflation")
-real_gdp = melt_imf(imf_usa, "NGDP_R", "real_gdp")
+gdp_pc = melt_imf(imf_usa, "NGDPDPC", "gdp_per_capita", year_cols_imf)
+inflation = melt_imf(imf_usa, "PCPIEPCH", "inflation", year_cols_imf)
+real_gdp = melt_imf(imf_usa, "NGDP_R", "real_gdp", year_cols_imf)
 macro = gdp_pc.merge(inflation, on = ["Country", "year"], how="inner")
 macro = macro.merge(real_gdp, on=["Country", "year"], how="inner")
 macro = macro[["year", "gdp_per_capita", "inflation", "real_gdp"]]
@@ -187,6 +194,7 @@ macro = macro[["year", "gdp_per_capita", "inflation", "real_gdp"]]
 df = nber.merge(robotics_mfg, on="year", how = "inner")
 df = df.merge(wb_long, on="year", how="left")
 df = df.merge(macro, on="year", how="left")
+df = df.loc[:, ~df.columns.duplicated()].copy()
 df = df.sort_values(["naics", "year"]).reset_index(drop=True)
 
 print("Merged shape: " + str(df.shape))
@@ -216,17 +224,19 @@ feature_cols = [
     "year"
 ]
 required_cols = (["naics", "naics_title", "short_title", "short_label", "full_label", "match_level", "year"] +
-                 feature_cols + ["labor_productivity", "revenue_per_worker"])
-for col in feature_cols + ["labor_productivity", "revenue_per_worker"]:
+                 feature_cols + ["labor_productivity", "revenue_per_emp"])
+for col in feature_cols + ["labor_productivity", "revenue_per_emp"]:
     df[col] = pd.to_numeric(df[col], errors="coerce")
 model_df = df[required_cols].dropna().copy()
+model_df = model_df.iloc[:, ~model_df.columns.duplicated()].copy()
+mocdl_df = model_df.dropna().copy()
 print("Modeling rows after NA drop: ", model_df.shape)
 
 # Model Creation
 # Training/ Testing
 X = model_df[feature_cols]
 y_prod = model_df["labor_productivity"]
-y_rev = model_df["revenue_per_worker"]
+y_rev = model_df["revenue_per_emp"]
 
 # Split to ensure test & train have different values
 gss = GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=2026)
@@ -295,12 +305,12 @@ results["prod_pct_change"] = np.where(
     (results["productivity_change"] / results["baseline_productivity"]) * 100,
     np.nan
 )
-results["baseline_revenue_per_worker"] = baseline_rev
-results["scenario_revenue_per_worker"] = scenario_rev
-results["revenue_change"] = results["scenario_revenue_per_worker"] - results["baseline_revenue_per_worker"]
+results["baseline_revenue_per_emp"] = baseline_rev
+results["scenario_revenue_per_emp"] = scenario_rev
+results["revenue_change"] = results["scenario_revenue_per_emp"] - results["baseline_revenue_per_emp"]
 results["revenue_pct_change"] = np.where(
-    results["baseline_revenue_per_worker"] != 0,
-    (results["revenue_change"] / results["baseline_revenue_per_worker"]) * 100,
+    results["baseline_revenue_per_emp"] != 0,
+    (results["revenue_change"] / results["baseline_revenue_per_emp"]) * 100,
     np.nan
 )
 
@@ -319,8 +329,8 @@ sector_summary = (results.groupby(["naics", "naics_title", "short_title", "short
                                    "match_level"], as_index=False).agg(
     avg_prod_pct_change = ("prod_pct_change", "mean"),
     avg_revenue_pct_change = ("revenue_pct_change", "mean"),
-    avg_baseline_revenue = ("baseline_revenue_per_worker", "mean"),
-    avg_scenario_revenue = ("scenario_revenue_per_worker", "mean")
+    avg_baseline_revenue = ("baseline_revenue_per_emp", "mean"),
+    avg_scenario_revenue = ("scenario_revenue_per_emp", "mean")
 ).sort_values("avg_prod_pct_change", ascending = False).reset_index(drop=True))
 top15 = sector_summary.head(15).copy()
 top_prod_features = prod_importance["feature"].head(5).tolist()
@@ -358,7 +368,7 @@ prod_importance.to_csv("productivity_feature_importance.csv", index=False)
 rev_importance.to_csv("revenue_feature_importance.csv", index=False)
 
 metrics = pd.DataFrame({
-    "model": ["productivity", "revenue_per_worker"],
+    "model": ["productivity", "revenue_per_emp"],
     "rmse": [prod_rmse, rev_rmse],
     "mae": [prod_mae, rev_mae],
     "r2": [prod_r2, rev_r2],
