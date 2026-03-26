@@ -77,6 +77,83 @@ df = df.sort_values(["naics", "year"]).reset_index(drop=True)
 
 print("Merged shape: " + str(df.shape))
 print("Years in final dataset: " + str(len(df)))
-print(df.head())
+
+# productivity
+
+target_col = "labor_productivity"
+
+# productivity feature
+feature_cols = [
+    # Group 1
+    "cap", "plant", "equip", "invest", "cap_labor_ratio",
+
+    # Group 2
+    "emp", "prode", "non_prod_workers", "pay", "prodh", "prodw",
+
+    # Group 3
+    "matcost",
+
+    # Automation
+    "robots_adopted", "robotics_productivity_gain", "robotics_cost_savings", "jobs_displaced", "training_hours",
+
+    # Group 4
+    "manuf_export_share",
+
+    # Group 5
+    "gdp_per_capita", "inflation", "real_gdp",
+
+    # time-scale
+    "year"
+]
+
+model_df = df[["naics", target_col] + feature_cols].copy()
+model_df = model_df.dropna()
+print("Modeling rows after NA drop: ", model_df.shape)
+
+# Model Creation
+# Training/ Testing
+X = model_df[feature_cols]
+y = model_df[target_col]
+
+# Split to ensure test & train have different values
+gss = GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=2026)
+train_set, test_set = next(gss.split(X, y, groups=model_df["naics"]))
+
+X_train, X_test = X.iloc[train_set], X.iloc[test_set]
+y_train, y_test = y.iloc[train_set], y.iloc[test_set]
+
+xgb_model = XGBRegressor(
+     n_estimators=300,
+     max_depth=8,
+     learning_rate=0.5,
+     subsample=0.9,
+     colsample_bytree=0.9,
+     reg_alpha=0.1,
+     reg_lamba=1.0,
+     random_state=2026,
+ )
+xgb_model.fit(X_train, y_train)
+preds = xgb_model.predict(X_test)
+
+rmse = np.sqrt(mean_squared_error(y_test, preds))
+mae = mean_absolute_error(y_test, preds)
+r2 = r2_score(y_test, preds)
+print(f"RMSE: {rmse:.4f}")
+print(f"MAE: {mae:.4f}")
+print(f"R2: {r2:.4f}")
+
+importance = pd.DataFrame({
+    "feature": X_train.columns,
+    "importance": xgb_model.feature_importances_,
+}).sort_values("importance", ascending = False)
+
+print(importance.head(15))
+
+plt.figure(figsize=(10,8))
+plt.barh(importance["feature"].head(15)[::-1], importance["importance"].head(15)[::-1])
+plt.xlabel("Importance")
+plt.title("Top 15 XGBoost Feature Importances")
+plt.tight_layout()
+plt.show()
 
 #
