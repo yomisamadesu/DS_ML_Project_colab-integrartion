@@ -781,7 +781,7 @@ plt.bar(top15_future_prod["short_label"], top15_future_prod["avg_future_producti
 plt.xticks(rotation=60, ha="right")
 plt.xlabel("Top 15 Manufacturing Sectors")
 plt.ylabel("Projected Productivity")
-plt.title("Projected Productivity (2024-2027 Average)")
+plt.title("Projected Productivity (2024-2027 Average) (XGBoost)")
 plt.tight_layout()
 plt.savefig("chart_3_projected_future_productivity.png", dpi=300, bbox_inches="tight")
 plt.show()
@@ -791,8 +791,8 @@ plt.figure(figsize=(16, 7))
 plt.bar(top15_future_rev["short_label"], top15_future_rev["avg_future_revenue"])
 plt.xticks(rotation=60, ha="right")
 plt.xlabel("Top 15 Manufacturing Sectors")
-plt.ylabel("Projected Revenue per Worker")
-plt.title("Projected Revenue per Worker (2024-2027 Average)")
+plt.ylabel("Projected Revenue per Worker ($USD)")
+plt.title("Projected Revenue per Worker (2024-2027 Average) (XGBoost)")
 plt.tight_layout()
 plt.savefig("chart_4_projected_future_revenue.png", dpi=300, bbox_inches="tight")
 plt.show()
@@ -805,13 +805,13 @@ print(top15_hist[[
     "revenue_pct_change"
 ]].to_string(index=False))
 
-print("\nTOP 15 FUTURE PRODUCTIVITY (2024-2027 AVG)")
+print("\nTOP 15 FUTURE PRODUCTIVITY (2024-2027 AVG) (XGBoost)")
 print(top15_future_prod[[
     "short_label",
     "avg_future_productivity"
 ]].to_string(index=False))
 
-print("\nTOP 15 FUTURE REVENUE (2024-2027 AVG)")
+print("\nTOP 15 FUTURE REVENUE (2024-2027 AVG) (XGBoost)")
 print(top15_future_rev[[
     "short_label",
     "avg_future_revenue"
