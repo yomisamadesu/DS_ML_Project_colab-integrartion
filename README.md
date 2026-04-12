@@ -36,7 +36,7 @@ MAE around  ~49 compared to XGBoost's ~124 and ~57 respectively. XGboost attains
 attained a score of ~0.64, showing that XGBoost is performing considerably worse when modeling productivity. 
 In contrast XGBoost performs better at modeling revenue than LightGBM. XGBoost produces an r^2 score ~0.85 compared to 
 LightGBM's 0.65. The most consistent and important features include capital labor ratio, capital stock, equipment investment, 
-material costs, and investment. We tested for a +10% increase in robot adoption with an accompanied +5% in employee 
+material costs, and investment. We tested for a +10%, +15% & +25% increase in robot adoption with an accompanied +5% and +15% in employee 
 training hours, these results  depicted an uneven positive effect across manufacturing sectors. 
 It would appear that the more an organization contributes to capital labor ratio, capital stock, equipment investment, 
 and material costs, the more likely they are to benefit from an increase in robot adoption and automation.
