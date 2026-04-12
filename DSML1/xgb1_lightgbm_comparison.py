@@ -635,8 +635,8 @@ plt.show()
 X_all = X.copy()
 scenario_all = X_all.copy()
 
-scenario_all["robots_adopted"] *= 1.10
-scenario_all["training_hours"] *= 1.05
+scenario_all["robots_adopted"] *= 1.25
+scenario_all["training_hours"] *= 1.15
 
 baseline_prod = prod_model.predict(X_all)
 scenario_prod = prod_model.predict(scenario_all)

@@ -1,0 +1,365 @@
+naics,naics_title,match_level,short_title,short_label,full_label
+311111,Dog and Cat Food Manufacturing,exact,Dog & Cat Food Mfg,311111 | Dog & Cat Food Mfg,311111 - Dog and Cat Food Manufacturing
+311119,Other Animal Food Manufacturing,exact,Other Animal Food Mfg,311119 | Other Animal Food Mfg,311119 - Other Animal Food Manufacturing
+311211,Flour Milling,exact,Flour Milling,311211 | Flour Milling,311211 - Flour Milling
+311212,Rice Milling,exact,Rice Milling,311212 | Rice Milling,311212 - Rice Milling
+311213,Malt Manufacturing,exact,Malt Mfg,311213 | Malt Mfg,311213 - Malt Manufacturing
+311221,Wet Corn Milling and Starch Manufacturing,exact,Wet Corn Milling & Starch Mfg,311221 | Wet Corn Milling & Starch Mfg,311221 - Wet Corn Milling and Starch Manufacturing
+311224,Soybean and Other Oilseed Processing,exact,Soybean & Other Oilseed Proc,311224 | Soybean & Other Oilseed Proc,311224 - Soybean and Other Oilseed Processing
+311225,Fats and Oils Refining and Blending,exact,Fats & Oils Refining & Blending,311225 | Fats & Oils Refining & Blending,311225 - Fats and Oils Refining and Blending
+311230,Breakfast Cereal Manufacturing,exact,Breakfast Cereal Mfg,311230 | Breakfast Cereal Mfg,311230 - Breakfast Cereal Manufacturing
+311313,Beet Sugar Manufacturing,exact,Beet Sugar Mfg,311313 | Beet Sugar Mfg,311313 - Beet Sugar Manufacturing
+311314,Cane Sugar Manufacturing,exact,Cane Sugar Mfg,311314 | Cane Sugar Mfg,311314 - Cane Sugar Manufacturing
+311340,Nonchocolate Confectionery Manufacturing,exact,Nonchocolate Confectionery Mfg,311340 | Nonchocolate Confectionery Mfg,311340 - Nonchocolate Confectionery Manufacturing
+311351,Chocolate and Confectionery Manufacturing from Cacao Beans,exact,Chocolate & Confectionery Mfg from Ca...,311351 | Chocolate & Confectionery Mfg from Ca...,311351 - Chocolate and Confectionery Manufacturing from Cacao Beans
+311352,Confectionery Manufacturing from Purchased Chocolate,exact,Confectionery Mfg from Purchased Choc...,311352 | Confectionery Mfg from Purchased Choc...,311352 - Confectionery Manufacturing from Purchased Chocolate
+311411,"Frozen Fruit, Juice, and Vegetable Manufacturing",exact,"Frozen Fruit, Juice, & Vegetable Mfg","311411 | Frozen Fruit, Juice, & Vegetable Mfg","311411 - Frozen Fruit, Juice, and Vegetable Manufacturing"
+311412,Frozen Specialty Food Manufacturing,exact,Frozen Specialty Food Mfg,311412 | Frozen Specialty Food Mfg,311412 - Frozen Specialty Food Manufacturing
+311421,Fruit and Vegetable Canning,exact,Fruit & Vegetable Canning,311421 | Fruit & Vegetable Canning,311421 - Fruit and Vegetable Canning
+311422,Specialty Canning,exact,Specialty Canning,311422 | Specialty Canning,311422 - Specialty Canning
+311423,Dried and Dehydrated Food Manufacturing,exact,Dried & Dehydrated Food Mfg,311423 | Dried & Dehydrated Food Mfg,311423 - Dried and Dehydrated Food Manufacturing
+311511,Fluid Milk Manufacturing,exact,Fluid Milk Mfg,311511 | Fluid Milk Mfg,311511 - Fluid Milk Manufacturing
+311512,Creamery Butter Manufacturing,exact,Creamery Butter Mfg,311512 | Creamery Butter Mfg,311512 - Creamery Butter Manufacturing
+311513,Cheese Manufacturing,exact,Cheese Mfg,311513 | Cheese Mfg,311513 - Cheese Manufacturing
+311514,"Dry, Condensed, and Evaporated Dairy Product Manufacturing",exact,"Dry, Condensed, & Evaporated Dairy Pr...","311514 | Dry, Condensed, & Evaporated Dairy Pr...","311514 - Dry, Condensed, and Evaporated Dairy Product Manufacturing"
+311520,Ice Cream and Frozen Dessert Manufacturing,exact,Ice Cream & Frozen Dessert Mfg,311520 | Ice Cream & Frozen Dessert Mfg,311520 - Ice Cream and Frozen Dessert Manufacturing
+311611,Animal (except Poultry) Slaughtering,exact,Animal (except Poultry) Slaughtering,311611 | Animal (except Poultry) Slaughtering,311611 - Animal (except Poultry) Slaughtering
+311612,Meat Processed from Carcasses,exact,Meat Processed from Carcasses,311612 | Meat Processed from Carcasses,311612 - Meat Processed from Carcasses
+311613,Rendering and Meat Byproduct Processing,exact,Rendering & Meat Byproduct Proc,311613 | Rendering & Meat Byproduct Proc,311613 - Rendering and Meat Byproduct Processing
+311615,Poultry Processing,exact,Poultry Proc,311615 | Poultry Proc,311615 - Poultry Processing
+311710,Seafood Product Preparation and Packaging,exact,Seafood Prod Prep & Pkg,311710 | Seafood Prod Prep & Pkg,311710 - Seafood Product Preparation and Packaging
+311811,Retail Bakeries,exact,Retail Bakeries,311811 | Retail Bakeries,311811 - Retail Bakeries
+311812,Commercial Bakeries,exact,Commercial Bakeries,311812 | Commercial Bakeries,311812 - Commercial Bakeries
+311813,"Frozen Cakes, Pies, and Other Pastries Manufacturing",exact,"Frozen Cakes, Pies, & Other Pastries Mfg","311813 | Frozen Cakes, Pies, & Other Pastries Mfg","311813 - Frozen Cakes, Pies, and Other Pastries Manufacturing"
+311821,Cookie and Cracker Manufacturing,exact,Cookie & Cracker Mfg,311821 | Cookie & Cracker Mfg,311821 - Cookie and Cracker Manufacturing
+311824,"Dry Pasta, Dough, and Flour Mixes Manufacturing from Purchased Flour",exact,"Dry Pasta, Dough, & Flour Mixes Mfg f...","311824 | Dry Pasta, Dough, & Flour Mixes Mfg f...","311824 - Dry Pasta, Dough, and Flour Mixes Manufacturing from Purchased Flour"
+311830,Tortilla Manufacturing,exact,Tortilla Mfg,311830 | Tortilla Mfg,311830 - Tortilla Manufacturing
+311911,Roasted Nuts and Peanut Butter Manufacturing,exact,Roasted Nuts & Peanut Butter Mfg,311911 | Roasted Nuts & Peanut Butter Mfg,311911 - Roasted Nuts and Peanut Butter Manufacturing
+311919,Other Snack Food Manufacturing,exact,Other Snack Food Mfg,311919 | Other Snack Food Mfg,311919 - Other Snack Food Manufacturing
+311920,Coffee and Tea Manufacturing,exact,Coffee & Tea Mfg,311920 | Coffee & Tea Mfg,311920 - Coffee and Tea Manufacturing
+311930,Flavoring Syrup and Concentrate Manufacturing,exact,Flavoring Syrup & Concentrate Mfg,311930 | Flavoring Syrup & Concentrate Mfg,311930 - Flavoring Syrup and Concentrate Manufacturing
+311941,"Mayonnaise, Dressing, and Other Prepared Sauce Manufacturing",exact,"Mayonnaise, Dressing, & Other Prepare...","311941 | Mayonnaise, Dressing, & Other Prepare...","311941 - Mayonnaise, Dressing, and Other Prepared Sauce Manufacturing"
+311942,Spice and Extract Manufacturing,exact,Spice & Extract Mfg,311942 | Spice & Extract Mfg,311942 - Spice and Extract Manufacturing
+311991,Perishable Prepared Food Manufacturing,exact,Perishable Prepared Food Mfg,311991 | Perishable Prepared Food Mfg,311991 - Perishable Prepared Food Manufacturing
+311999,All Other Miscellaneous Food Manufacturing,exact,All Other Misc Food Mfg,311999 | All Other Misc Food Mfg,311999 - All Other Miscellaneous Food Manufacturing
+312111,Soft Drink Manufacturing,exact,Soft Drink Mfg,312111 | Soft Drink Mfg,312111 - Soft Drink Manufacturing
+312112,Bottled Water Manufacturing,exact,Bottled Water Mfg,312112 | Bottled Water Mfg,312112 - Bottled Water Manufacturing
+312113,Ice Manufacturing,exact,Ice Mfg,312113 | Ice Mfg,312113 - Ice Manufacturing
+312120,Breweries,exact,Breweries,312120 | Breweries,312120 - Breweries
+312130,Wineries,exact,Wineries,312130 | Wineries,312130 - Wineries
+312140,Distilleries,exact,Distilleries,312140 | Distilleries,312140 - Distilleries
+312230,Tobacco Manufacturing,exact,Tobacco Mfg,312230 | Tobacco Mfg,312230 - Tobacco Manufacturing
+313110,"Fiber, Yarn, and Thread Mills",exact,"Fiber, Yarn, & Thread Mills","313110 | Fiber, Yarn, & Thread Mills","313110 - Fiber, Yarn, and Thread Mills"
+313210,Broadwoven Fabric Mills,exact,Broadwoven Fabric Mills,313210 | Broadwoven Fabric Mills,313210 - Broadwoven Fabric Mills
+313220,Narrow Fabric Mills and Schiffli Machine Embroidery,exact,Narrow Fabric Mills & Schiffli Machin...,313220 | Narrow Fabric Mills & Schiffli Machin...,313220 - Narrow Fabric Mills and Schiffli Machine Embroidery
+313230,Nonwoven Fabric Mills,exact,Nonwoven Fabric Mills,313230 | Nonwoven Fabric Mills,313230 - Nonwoven Fabric Mills
+313240,Knit Fabric Mills,exact,Knit Fabric Mills,313240 | Knit Fabric Mills,313240 - Knit Fabric Mills
+313310,Textile and Fabric Finishing Mills,exact,Text & Fabric Finishing Mills,313310 | Text & Fabric Finishing Mills,313310 - Textile and Fabric Finishing Mills
+313320,Fabric Coating Mills,exact,Fabric Coating Mills,313320 | Fabric Coating Mills,313320 - Fabric Coating Mills
+314110,Carpet and Rug Mills,exact,Carpet & Rug Mills,314110 | Carpet & Rug Mills,314110 - Carpet and Rug Mills
+314120,Curtain and Linen Mills,exact,Curtain & Linen Mills,314120 | Curtain & Linen Mills,314120 - Curtain and Linen Mills
+314910,Textile Bag and Canvas Mills,exact,Text Bag & Canvas Mills,314910 | Text Bag & Canvas Mills,314910 - Textile Bag and Canvas Mills
+314994,"Rope, Cordage, Twine, Tire Cord, and Tire Fabric Mills",exact,"Rope, Cordage, Twine, Tire Cord, & Ti...","314994 | Rope, Cordage, Twine, Tire Cord, & Ti...","314994 - Rope, Cordage, Twine, Tire Cord, and Tire Fabric Mills"
+314999,All Other Miscellaneous Textile Product Mills,exact,All Other Misc Text Prod Mills,314999 | All Other Misc Text Prod Mills,314999 - All Other Miscellaneous Textile Product Mills
+315110,Apparel Knitting MillsT,prefix_4_digit,App Knitting MillsT,315110 | App Knitting MillsT,315110 - Apparel Knitting MillsT
+315190,Apparel Knitting MillsT,prefix_4_digit,App Knitting MillsT,315190 | App Knitting MillsT,315190 - Apparel Knitting MillsT
+315210,Cut and Sew Apparel Contractors,exact,Cut & Sew App Contractors,315210 | Cut & Sew App Contractors,315210 - Cut and Sew Apparel Contractors
+315220,Cut and Sew Apparel ManufacturingT,prefix_4_digit,Cut & Sew App MfgT,315220 | Cut & Sew App MfgT,315220 - Cut and Sew Apparel ManufacturingT
+315240,Cut and Sew Apparel ManufacturingT,prefix_4_digit,Cut & Sew App MfgT,315240 | Cut & Sew App MfgT,315240 - Cut and Sew Apparel ManufacturingT
+315280,Cut and Sew Apparel ManufacturingT,prefix_4_digit,Cut & Sew App MfgT,315280 | Cut & Sew App MfgT,315280 - Cut and Sew Apparel ManufacturingT
+315990,Apparel Accessories and Other Apparel Manufacturing,exact,App Accessories & Other App Mfg,315990 | App Accessories & Other App Mfg,315990 - Apparel Accessories and Other Apparel Manufacturing
+316110,Leather and Hide Tanning and Finishing,exact,Leather & Hide Tanning & Finishing,316110 | Leather & Hide Tanning & Finishing,316110 - Leather and Hide Tanning and Finishing
+316210,Footwear Manufacturing,exact,Footwear Mfg,316210 | Footwear Mfg,316210 - Footwear Manufacturing
+316992,Other Leather and Allied Product ManufacturingT,prefix_5_digit,Other Leather & Allied Prod MfgT,316992 | Other Leather & Allied Prod MfgT,316992 - Other Leather and Allied Product ManufacturingT
+316998,Other Leather and Allied Product ManufacturingT,prefix_5_digit,Other Leather & Allied Prod MfgT,316998 | Other Leather & Allied Prod MfgT,316998 - Other Leather and Allied Product ManufacturingT
+321113,Sawmills,exact,Sawmills,321113 | Sawmills,321113 - Sawmills
+321114,Wood Preservation,exact,Wood Preservation,321114 | Wood Preservation,321114 - Wood Preservation
+321211,Hardwood Veneer and Plywood Manufacturing,exact,Hardwood Veneer & Plywood Mfg,321211 | Hardwood Veneer & Plywood Mfg,321211 - Hardwood Veneer and Plywood Manufacturing
+321212,Softwood Veneer and Plywood Manufacturing,exact,Softwood Veneer & Plywood Mfg,321212 | Softwood Veneer & Plywood Mfg,321212 - Softwood Veneer and Plywood Manufacturing
+321213,"Veneer, Plywood, and Engineered Wood Product ManufacturingT",prefix_5_digit,"Veneer, Plywood, & Engineered Wood Pr...","321213 | Veneer, Plywood, & Engineered Wood Pr...","321213 - Veneer, Plywood, and Engineered Wood Product ManufacturingT"
+321214,"Veneer, Plywood, and Engineered Wood Product ManufacturingT",prefix_5_digit,"Veneer, Plywood, & Engineered Wood Pr...","321214 | Veneer, Plywood, & Engineered Wood Pr...","321214 - Veneer, Plywood, and Engineered Wood Product ManufacturingT"
+321219,Reconstituted Wood Product Manufacturing,exact,Reconstituted Wood Prod Mfg,321219 | Reconstituted Wood Prod Mfg,321219 - Reconstituted Wood Product Manufacturing
+321911,Wood Window and Door Manufacturing,exact,Wood Window & Door Mfg,321911 | Wood Window & Door Mfg,321911 - Wood Window and Door Manufacturing
+321912,"Cut Stock, Resawing Lumber, and Planing",exact,"Cut Stock, Resawing Lumber, & Planing","321912 | Cut Stock, Resawing Lumber, & Planing","321912 - Cut Stock, Resawing Lumber, and Planing"
+321918,Other Millwork (including Flooring),exact,Other Millwork (including Flooring),321918 | Other Millwork (including Flooring),321918 - Other Millwork (including Flooring)
+321920,Wood Container and Pallet Manufacturing,exact,Wood Container & Pallet Mfg,321920 | Wood Container & Pallet Mfg,321920 - Wood Container and Pallet Manufacturing
+321991,Manufactured Home (Mobile Home) Manufacturing,exact,Manufactured Home (Mobile Home) Mfg,321991 | Manufactured Home (Mobile Home) Mfg,321991 - Manufactured Home (Mobile Home) Manufacturing
+321992,Prefabricated Wood Building Manufacturing,exact,Prefabricated Wood Building Mfg,321992 | Prefabricated Wood Building Mfg,321992 - Prefabricated Wood Building Manufacturing
+321999,All Other Miscellaneous Wood Product Manufacturing,exact,All Other Misc Wood Prod Mfg,321999 | All Other Misc Wood Prod Mfg,321999 - All Other Miscellaneous Wood Product Manufacturing
+322110,Pulp Mills,exact,Pulp Mills,322110 | Pulp Mills,322110 - Pulp Mills
+322121,Paper MillsT,prefix_5_digit,Paper MillsT,322121 | Paper MillsT,322121 - Paper MillsT
+322122,Paper MillsT,prefix_5_digit,Paper MillsT,322122 | Paper MillsT,322122 - Paper MillsT
+322130,Paperboard Mills,exact,Paperbd Mills,322130 | Paperbd Mills,322130 - Paperboard Mills
+322211,Corrugated and Solid Fiber Box Manufacturing,exact,Corrugated & Solid Fiber Box Mfg,322211 | Corrugated & Solid Fiber Box Mfg,322211 - Corrugated and Solid Fiber Box Manufacturing
+322212,Folding Paperboard Box Manufacturing,exact,Folding Paperbd Box Mfg,322212 | Folding Paperbd Box Mfg,322212 - Folding Paperboard Box Manufacturing
+322219,Other Paperboard Container Manufacturing,exact,Other Paperbd Container Mfg,322219 | Other Paperbd Container Mfg,322219 - Other Paperboard Container Manufacturing
+322220,Paper Bag and Coated and Treated Paper Manufacturing,exact,Paper Bag & Coated & Treated Paper Mfg,322220 | Paper Bag & Coated & Treated Paper Mfg,322220 - Paper Bag and Coated and Treated Paper Manufacturing
+322230,Stationery Product Manufacturing,exact,Stationery Prod Mfg,322230 | Stationery Prod Mfg,322230 - Stationery Product Manufacturing
+322291,Sanitary Paper Product Manufacturing,exact,Sanitary Paper Prod Mfg,322291 | Sanitary Paper Prod Mfg,322291 - Sanitary Paper Product Manufacturing
+322299,All Other Converted Paper Product Manufacturing,exact,All Other Converted Paper Prod Mfg,322299 | All Other Converted Paper Prod Mfg,322299 - All Other Converted Paper Product Manufacturing
+323111,Commercial Printing (except Screen and Books),exact,Commercial Print (except Screen & Books),323111 | Commercial Print (except Screen & Books),323111 - Commercial Printing (except Screen and Books)
+323113,Commercial Screen Printing,exact,Commercial Screen Print,323113 | Commercial Screen Print,323113 - Commercial Screen Printing
+323117,Books Printing,exact,Books Print,323117 | Books Print,323117 - Books Printing
+323120,Support Activities for Printing,exact,Support Activities for Print,323120 | Support Activities for Print,323120 - Support Activities for Printing
+324110,Petroleum Refineries,exact,Petroleum Refineries,324110 | Petroleum Refineries,324110 - Petroleum Refineries
+324121,Asphalt Paving Mixture and Block Manufacturing,exact,Asphalt Paving Mixture & Block Mfg,324121 | Asphalt Paving Mixture & Block Mfg,324121 - Asphalt Paving Mixture and Block Manufacturing
+324122,Asphalt Shingle and Coating Materials Manufacturing,exact,Asphalt Shingle & Coating Materials Mfg,324122 | Asphalt Shingle & Coating Materials Mfg,324122 - Asphalt Shingle and Coating Materials Manufacturing
+324191,Petroleum Lubricating Oil and Grease Manufacturing,exact,Petroleum Lubricating Oil & Grease Mfg,324191 | Petroleum Lubricating Oil & Grease Mfg,324191 - Petroleum Lubricating Oil and Grease Manufacturing
+324199,All Other Petroleum and Coal Products Manufacturing,exact,All Other Petroleum & Coal Prod Mfg,324199 | All Other Petroleum & Coal Prod Mfg,324199 - All Other Petroleum and Coal Products Manufacturing
+325110,Petrochemical Manufacturing,exact,Petrochemical Mfg,325110 | Petrochemical Mfg,325110 - Petrochemical Manufacturing
+325120,Industrial Gas Manufacturing,exact,Industrial Gas Mfg,325120 | Industrial Gas Mfg,325120 - Industrial Gas Manufacturing
+325130,Synthetic Dye and Pigment Manufacturing,exact,Synthetic Dye & Pigment Mfg,325130 | Synthetic Dye & Pigment Mfg,325130 - Synthetic Dye and Pigment Manufacturing
+325180,Other Basic Inorganic Chemical Manufacturing,exact,Other Basic Inorganic Chem Mfg,325180 | Other Basic Inorganic Chem Mfg,325180 - Other Basic Inorganic Chemical Manufacturing
+325193,Ethyl Alcohol Manufacturing,exact,Ethyl Alcohol Mfg,325193 | Ethyl Alcohol Mfg,325193 - Ethyl Alcohol Manufacturing
+325194,"Cyclic Crude, Intermediate, and Gum and Wood Chemical Manufacturing",exact,"Cyclic Crude, Intermediate, & Gum & W...","325194 | Cyclic Crude, Intermediate, & Gum & W...","325194 - Cyclic Crude, Intermediate, and Gum and Wood Chemical Manufacturing"
+325199,All Other Basic Organic Chemical Manufacturing,exact,All Other Basic Organic Chem Mfg,325199 | All Other Basic Organic Chem Mfg,325199 - All Other Basic Organic Chemical Manufacturing
+325211,Plastics Material and Resin Manufacturing,exact,Plast Material & Resin Mfg,325211 | Plast Material & Resin Mfg,325211 - Plastics Material and Resin Manufacturing
+325212,Synthetic Rubber Manufacturing,exact,Synthetic Rubber Mfg,325212 | Synthetic Rubber Mfg,325212 - Synthetic Rubber Manufacturing
+325220,Artificial and Synthetic Fibers and Filaments Manufacturing,exact,Artificial & Synthetic Fibers & Filam...,325220 | Artificial & Synthetic Fibers & Filam...,325220 - Artificial and Synthetic Fibers and Filaments Manufacturing
+325311,Nitrogenous Fertilizer Manufacturing,exact,Nitrogenous Fertilizer Mfg,325311 | Nitrogenous Fertilizer Mfg,325311 - Nitrogenous Fertilizer Manufacturing
+325312,Phosphatic Fertilizer Manufacturing,exact,Phosphatic Fertilizer Mfg,325312 | Phosphatic Fertilizer Mfg,325312 - Phosphatic Fertilizer Manufacturing
+325314,Fertilizer (Mixing Only) Manufacturing,exact,Fertilizer (Mixing Only) Mfg,325314 | Fertilizer (Mixing Only) Mfg,325314 - Fertilizer (Mixing Only) Manufacturing
+325320,Pesticide and Other Agricultural Chemical Manufacturing,exact,Pesticide & Other Agricultural Chem Mfg,325320 | Pesticide & Other Agricultural Chem Mfg,325320 - Pesticide and Other Agricultural Chemical Manufacturing
+325411,Medicinal and Botanical Manufacturing,exact,Medicinal & Botanical Mfg,325411 | Medicinal & Botanical Mfg,325411 - Medicinal and Botanical Manufacturing
+325412,Pharmaceutical Preparation Manufacturing,exact,Pharma Prep Mfg,325412 | Pharma Prep Mfg,325412 - Pharmaceutical Preparation Manufacturing
+325413,In-Vitro Diagnostic Substance Manufacturing,exact,In-Vitro Diagnostic Substance Mfg,325413 | In-Vitro Diagnostic Substance Mfg,325413 - In-Vitro Diagnostic Substance Manufacturing
+325414,Biological Product (except Diagnostic) Manufacturing,exact,Biological Prod (except Diagnostic) Mfg,325414 | Biological Prod (except Diagnostic) Mfg,325414 - Biological Product (except Diagnostic) Manufacturing
+325510,Paint and Coating Manufacturing,exact,Paint & Coating Mfg,325510 | Paint & Coating Mfg,325510 - Paint and Coating Manufacturing
+325520,Adhesive Manufacturing,exact,Adhesive Mfg,325520 | Adhesive Mfg,325520 - Adhesive Manufacturing
+325611,Soap and Other Detergent Manufacturing,exact,Soap & Other Detergent Mfg,325611 | Soap & Other Detergent Mfg,325611 - Soap and Other Detergent Manufacturing
+325612,Polish and Other Sanitation Good Manufacturing,exact,Polish & Other Sanitation Good Mfg,325612 | Polish & Other Sanitation Good Mfg,325612 - Polish and Other Sanitation Good Manufacturing
+325613,Surface Active Agent Manufacturing,exact,Surface Active Agent Mfg,325613 | Surface Active Agent Mfg,325613 - Surface Active Agent Manufacturing
+325620,Toilet Preparation Manufacturing,exact,Toilet Prep Mfg,325620 | Toilet Prep Mfg,325620 - Toilet Preparation Manufacturing
+325910,Printing Ink Manufacturing,exact,Print Ink Mfg,325910 | Print Ink Mfg,325910 - Printing Ink Manufacturing
+325920,Explosives Manufacturing,exact,Explosives Mfg,325920 | Explosives Mfg,325920 - Explosives Manufacturing
+325991,Custom Compounding of Purchased Resins,exact,Custom Compounding of Purchased Resins,325991 | Custom Compounding of Purchased Resins,325991 - Custom Compounding of Purchased Resins
+325992,"Photographic Film, Paper, Plate, Chemical, and Copy Toner Manufacturing",exact,"Photographic Film, Paper, Plate, Chem...","325992 | Photographic Film, Paper, Plate, Chem...","325992 - Photographic Film, Paper, Plate, Chemical, and Copy Toner Manufacturing"
+325998,All Other Miscellaneous Chemical Product and Preparation Manufacturing,exact,All Other Misc Chem Prod & Prep Mfg,325998 | All Other Misc Chem Prod & Prep Mfg,325998 - All Other Miscellaneous Chemical Product and Preparation Manufacturing
+326111,Plastics Bag and Pouch Manufacturing,exact,Plast Bag & Pouch Mfg,326111 | Plast Bag & Pouch Mfg,326111 - Plastics Bag and Pouch Manufacturing
+326112,Plastics Packaging Film and Sheet (including Laminated) Manufacturing,exact,Plast Pkg Film & Sheet (including Lam...,326112 | Plast Pkg Film & Sheet (including Lam...,326112 - Plastics Packaging Film and Sheet (including Laminated) Manufacturing
+326113,Unlaminated Plastics Film and Sheet (except Packaging) Manufacturing,exact,Unlaminated Plast Film & Sheet (excep...,326113 | Unlaminated Plast Film & Sheet (excep...,326113 - Unlaminated Plastics Film and Sheet (except Packaging) Manufacturing
+326121,Unlaminated Plastics Profile Shape Manufacturing,exact,Unlaminated Plast Profile Shape Mfg,326121 | Unlaminated Plast Profile Shape Mfg,326121 - Unlaminated Plastics Profile Shape Manufacturing
+326122,Plastics Pipe and Pipe Fitting Manufacturing,exact,Plast Pipe & Pipe Fitting Mfg,326122 | Plast Pipe & Pipe Fitting Mfg,326122 - Plastics Pipe and Pipe Fitting Manufacturing
+326130,"Laminated Plastics Plate, Sheet (except Packaging), and Shape Manufacturing",exact,"Laminated Plast Plate, Sheet (except ...","326130 | Laminated Plast Plate, Sheet (except ...","326130 - Laminated Plastics Plate, Sheet (except Packaging), and Shape Manufacturing"
+326140,Polystyrene Foam Product Manufacturing,exact,Polystyrene Foam Prod Mfg,326140 | Polystyrene Foam Prod Mfg,326140 - Polystyrene Foam Product Manufacturing
+326150,Urethane and Other Foam Product (except Polystyrene) Manufacturing,exact,Urethane & Other Foam Prod (except Po...,326150 | Urethane & Other Foam Prod (except Po...,326150 - Urethane and Other Foam Product (except Polystyrene) Manufacturing
+326160,Plastics Bottle Manufacturing,exact,Plast Bottle Mfg,326160 | Plast Bottle Mfg,326160 - Plastics Bottle Manufacturing
+326191,Plastics Plumbing Fixture Manufacturing,exact,Plast Plumbing Fixture Mfg,326191 | Plast Plumbing Fixture Mfg,326191 - Plastics Plumbing Fixture Manufacturing
+326199,All Other Plastics Product Manufacturing,exact,All Other Plast Prod Mfg,326199 | All Other Plast Prod Mfg,326199 - All Other Plastics Product Manufacturing
+326211,Tire Manufacturing (except Retreading),exact,Tire Mfg (except Retreading),326211 | Tire Mfg (except Retreading),326211 - Tire Manufacturing (except Retreading)
+326212,Tire Retreading,exact,Tire Retreading,326212 | Tire Retreading,326212 - Tire Retreading
+326220,Rubber and Plastics Hoses and Belting Manufacturing,exact,Rubber & Plast Hoses & Belting Mfg,326220 | Rubber & Plast Hoses & Belting Mfg,326220 - Rubber and Plastics Hoses and Belting Manufacturing
+326291,Rubber Product Manufacturing for Mechanical Use,exact,Rubber Prod Mfg for Mechanical Use,326291 | Rubber Prod Mfg for Mechanical Use,326291 - Rubber Product Manufacturing for Mechanical Use
+326299,All Other Rubber Product Manufacturing,exact,All Other Rubber Prod Mfg,326299 | All Other Rubber Prod Mfg,326299 - All Other Rubber Product Manufacturing
+327110,"Pottery, Ceramics, and Plumbing Fixture Manufacturing",exact,"Pottery, Ceramics, & Plumbing Fixture...","327110 | Pottery, Ceramics, & Plumbing Fixture...","327110 - Pottery, Ceramics, and Plumbing Fixture Manufacturing"
+327120,Clay Building Material and Refractories Manufacturing,exact,Clay Building Material & Refractories...,327120 | Clay Building Material & Refractories...,327120 - Clay Building Material and Refractories Manufacturing
+327211,Flat Glass Manufacturing,exact,Flat Glass Mfg,327211 | Flat Glass Mfg,327211 - Flat Glass Manufacturing
+327212,Other Pressed and Blown Glass and Glassware Manufacturing,exact,Other Pressed & Blown Glass & Glasswa...,327212 | Other Pressed & Blown Glass & Glasswa...,327212 - Other Pressed and Blown Glass and Glassware Manufacturing
+327213,Glass Container Manufacturing,exact,Glass Container Mfg,327213 | Glass Container Mfg,327213 - Glass Container Manufacturing
+327215,Glass Product Manufacturing Made of Purchased Glass,exact,Glass Prod Mfg Made of Purchased Glass,327215 | Glass Prod Mfg Made of Purchased Glass,327215 - Glass Product Manufacturing Made of Purchased Glass
+327310,Cement Manufacturing,exact,Cement Mfg,327310 | Cement Mfg,327310 - Cement Manufacturing
+327320,Ready-Mix Concrete Manufacturing,exact,Ready-Mix Concrete Mfg,327320 | Ready-Mix Concrete Mfg,327320 - Ready-Mix Concrete Manufacturing
+327331,Concrete Block and Brick Manufacturing,exact,Concrete Block & Brick Mfg,327331 | Concrete Block & Brick Mfg,327331 - Concrete Block and Brick Manufacturing
+327332,Concrete Pipe Manufacturing,exact,Concrete Pipe Mfg,327332 | Concrete Pipe Mfg,327332 - Concrete Pipe Manufacturing
+327390,Other Concrete Product Manufacturing,exact,Other Concrete Prod Mfg,327390 | Other Concrete Prod Mfg,327390 - Other Concrete Product Manufacturing
+327410,Lime Manufacturing,exact,Lime Mfg,327410 | Lime Mfg,327410 - Lime Manufacturing
+327420,Gypsum Product Manufacturing,exact,Gypsum Prod Mfg,327420 | Gypsum Prod Mfg,327420 - Gypsum Product Manufacturing
+327910,Abrasive Product Manufacturing,exact,Abrasive Prod Mfg,327910 | Abrasive Prod Mfg,327910 - Abrasive Product Manufacturing
+327991,Cut Stone and Stone Product Manufacturing,exact,Cut Stone & Stone Prod Mfg,327991 | Cut Stone & Stone Prod Mfg,327991 - Cut Stone and Stone Product Manufacturing
+327992,Ground or Treated Mineral and Earth Manufacturing,exact,Ground or Treated Mineral & Earth Mfg,327992 | Ground or Treated Mineral & Earth Mfg,327992 - Ground or Treated Mineral and Earth Manufacturing
+327993,Mineral Wool Manufacturing,exact,Mineral Wool Mfg,327993 | Mineral Wool Mfg,327993 - Mineral Wool Manufacturing
+327999,All Other Miscellaneous Nonmetallic Mineral Product Manufacturing,exact,All Other Misc Nonmetallic Mineral Pr...,327999 | All Other Misc Nonmetallic Mineral Pr...,327999 - All Other Miscellaneous Nonmetallic Mineral Product Manufacturing
+331110,Iron and Steel Mills and Ferroalloy Manufacturing,exact,Iron & Steel Mills & Ferroalloy Mfg,331110 | Iron & Steel Mills & Ferroalloy Mfg,331110 - Iron and Steel Mills and Ferroalloy Manufacturing
+331210,Iron and Steel Pipe and Tube Manufacturing from Purchased Steel,exact,Iron & Steel Pipe & Tube Mfg from Pur...,331210 | Iron & Steel Pipe & Tube Mfg from Pur...,331210 - Iron and Steel Pipe and Tube Manufacturing from Purchased Steel
+331221,Rolled Steel Shape Manufacturing,exact,Rolled Steel Shape Mfg,331221 | Rolled Steel Shape Mfg,331221 - Rolled Steel Shape Manufacturing
+331222,Steel Wire Drawing,exact,Steel Wire Drawing,331222 | Steel Wire Drawing,331222 - Steel Wire Drawing
+331313,Alumina Refining and Primary Aluminum Production,exact,Alumina Refining & Primary Aluminum P...,331313 | Alumina Refining & Primary Aluminum P...,331313 - Alumina Refining and Primary Aluminum Production
+331314,Secondary Smelting and Alloying of Aluminum,exact,Secondary Smelting & Alloying of Alum...,331314 | Secondary Smelting & Alloying of Alum...,331314 - Secondary Smelting and Alloying of Aluminum
+331315,"Aluminum Sheet, Plate, and Foil Manufacturing",exact,"Aluminum Sheet, Plate, & Foil Mfg","331315 | Aluminum Sheet, Plate, & Foil Mfg","331315 - Aluminum Sheet, Plate, and Foil Manufacturing"
+331318,"Other Aluminum Rolling, Drawing, and Extruding",exact,"Other Aluminum Rolling, Drawing, & Ex...","331318 | Other Aluminum Rolling, Drawing, & Ex...","331318 - Other Aluminum Rolling, Drawing, and Extruding"
+331410,Nonferrous Metal (except Aluminum) Smelting and Refining,exact,Nonferrous Metal (except Aluminum) Sm...,331410 | Nonferrous Metal (except Aluminum) Sm...,331410 - Nonferrous Metal (except Aluminum) Smelting and Refining
+331420,"Copper Rolling, Drawing, Extruding, and Alloying",exact,"Copper Rolling, Drawing, Extruding, &...","331420 | Copper Rolling, Drawing, Extruding, &...","331420 - Copper Rolling, Drawing, Extruding, and Alloying"
+331491,"Nonferrous Metal (except Copper and Aluminum) Rolling, Drawing, and Extruding",exact,Nonferrous Metal (except Copper & Alu...,331491 | Nonferrous Metal (except Copper & Alu...,"331491 - Nonferrous Metal (except Copper and Aluminum) Rolling, Drawing, and Extruding"
+331492,"Secondary Smelting, Refining, and Alloying of Nonferrous Metal (except Copper and Aluminum)",exact,"Secondary Smelting, Refining, & Alloy...","331492 | Secondary Smelting, Refining, & Alloy...","331492 - Secondary Smelting, Refining, and Alloying of Nonferrous Metal (except Copper and Aluminum)"
+331511,Iron Foundries,exact,Iron Foundries,331511 | Iron Foundries,331511 - Iron Foundries
+331512,Steel Investment Foundries,exact,Steel Investment Foundries,331512 | Steel Investment Foundries,331512 - Steel Investment Foundries
+331513,Steel Foundries (except Investment),exact,Steel Foundries (except Investment),331513 | Steel Foundries (except Investment),331513 - Steel Foundries (except Investment)
+331523,Nonferrous Metal Die-Casting Foundries,exact,Nonferrous Metal Die-Casting Foundries,331523 | Nonferrous Metal Die-Casting Foundries,331523 - Nonferrous Metal Die-Casting Foundries
+331524,Aluminum Foundries (except Die-Casting),exact,Aluminum Foundries (except Die-Casting),331524 | Aluminum Foundries (except Die-Casting),331524 - Aluminum Foundries (except Die-Casting)
+331529,Other Nonferrous Metal Foundries (except Die-Casting),exact,Other Nonferrous Metal Foundries (exc...,331529 | Other Nonferrous Metal Foundries (exc...,331529 - Other Nonferrous Metal Foundries (except Die-Casting)
+332111,Iron and Steel Forging,exact,Iron & Steel Forging,332111 | Iron & Steel Forging,332111 - Iron and Steel Forging
+332112,Nonferrous Forging,exact,Nonferrous Forging,332112 | Nonferrous Forging,332112 - Nonferrous Forging
+332114,Custom Roll Forming,exact,Custom Roll Forming,332114 | Custom Roll Forming,332114 - Custom Roll Forming
+332117,Powder Metallurgy Part Manufacturing,exact,Powder Metallurgy Part Mfg,332117 | Powder Metallurgy Part Mfg,332117 - Powder Metallurgy Part Manufacturing
+332119,"Metal Crown, Closure, and Other Metal Stamping (except Automotive)",exact,"Metal Crown, Closure, & Other Metal S...","332119 | Metal Crown, Closure, & Other Metal S...","332119 - Metal Crown, Closure, and Other Metal Stamping (except Automotive)"
+332215,"Metal Kitchen Cookware, Utensil, Cutlery, and Flatware (except Precious) Manufacturing",exact,"Metal Kitchen Cookware, Utensil, Cutl...","332215 | Metal Kitchen Cookware, Utensil, Cutl...","332215 - Metal Kitchen Cookware, Utensil, Cutlery, and Flatware (except Precious) Manufacturing"
+332216,Saw Blade and Handtool Manufacturing,exact,Saw Blade & H&tool Mfg,332216 | Saw Blade & H&tool Mfg,332216 - Saw Blade and Handtool Manufacturing
+332311,Prefabricated Metal Building and Component Manufacturing,exact,Prefabricated Metal Building & Compon...,332311 | Prefabricated Metal Building & Compon...,332311 - Prefabricated Metal Building and Component Manufacturing
+332312,Fabricated Structural Metal Manufacturing,exact,Fab Structural Metal Mfg,332312 | Fab Structural Metal Mfg,332312 - Fabricated Structural Metal Manufacturing
+332313,Plate Work Manufacturing,exact,Plate Work Mfg,332313 | Plate Work Mfg,332313 - Plate Work Manufacturing
+332321,Metal Window and Door Manufacturing,exact,Metal Window & Door Mfg,332321 | Metal Window & Door Mfg,332321 - Metal Window and Door Manufacturing
+332322,Sheet Metal Work Manufacturing,exact,Sheet Metal Work Mfg,332322 | Sheet Metal Work Mfg,332322 - Sheet Metal Work Manufacturing
+332323,Ornamental and Architectural Metal Work Manufacturing,exact,Ornamental & Architectural Metal Work...,332323 | Ornamental & Architectural Metal Work...,332323 - Ornamental and Architectural Metal Work Manufacturing
+332410,Power Boiler and Heat Exchanger Manufacturing,exact,Power Boiler & Heat Exchanger Mfg,332410 | Power Boiler & Heat Exchanger Mfg,332410 - Power Boiler and Heat Exchanger Manufacturing
+332420,Metal Tank (Heavy Gauge) Manufacturing,exact,Metal Tank (Heavy Gauge) Mfg,332420 | Metal Tank (Heavy Gauge) Mfg,332420 - Metal Tank (Heavy Gauge) Manufacturing
+332431,Metal Can Manufacturing,exact,Metal Can Mfg,332431 | Metal Can Mfg,332431 - Metal Can Manufacturing
+332439,Other Metal Container Manufacturing,exact,Other Metal Container Mfg,332439 | Other Metal Container Mfg,332439 - Other Metal Container Manufacturing
+332510,Hardware Manufacturing,exact,Hardware Mfg,332510 | Hardware Mfg,332510 - Hardware Manufacturing
+332613,Spring Manufacturing,exact,Spring Mfg,332613 | Spring Mfg,332613 - Spring Manufacturing
+332618,Other Fabricated Wire Product Manufacturing,exact,Other Fab Wire Prod Mfg,332618 | Other Fab Wire Prod Mfg,332618 - Other Fabricated Wire Product Manufacturing
+332710,Machine Shops,exact,Machine Shops,332710 | Machine Shops,332710 - Machine Shops
+332721,Precision Turned Product Manufacturing,exact,Precision Turned Prod Mfg,332721 | Precision Turned Prod Mfg,332721 - Precision Turned Product Manufacturing
+332722,"Bolt, Nut, Screw, Rivet, and Washer Manufacturing",exact,"Bolt, Nut, Screw, Rivet, & Washer Mfg","332722 | Bolt, Nut, Screw, Rivet, & Washer Mfg","332722 - Bolt, Nut, Screw, Rivet, and Washer Manufacturing"
+332811,Metal Heat Treating,exact,Metal Heat Treating,332811 | Metal Heat Treating,332811 - Metal Heat Treating
+332812,"Metal Coating, Engraving (except Jewelry and Silverware), and Allied Services to Manufacturers",exact,"Metal Coating, Engraving (except Jewe...","332812 | Metal Coating, Engraving (except Jewe...","332812 - Metal Coating, Engraving (except Jewelry and Silverware), and Allied Services to Manufacturers"
+332813,"Electroplating, Plating, Polishing, Anodizing, and Coloring",exact,"Electroplating, Plating, Polishing, A...","332813 | Electroplating, Plating, Polishing, A...","332813 - Electroplating, Plating, Polishing, Anodizing, and Coloring"
+332911,Industrial Valve Manufacturing,exact,Industrial Valve Mfg,332911 | Industrial Valve Mfg,332911 - Industrial Valve Manufacturing
+332912,Fluid Power Valve and Hose Fitting Manufacturing,exact,Fluid Power Valve & Hose Fitting Mfg,332912 | Fluid Power Valve & Hose Fitting Mfg,332912 - Fluid Power Valve and Hose Fitting Manufacturing
+332913,Plumbing Fixture Fitting and Trim Manufacturing,exact,Plumbing Fixture Fitting & Trim Mfg,332913 | Plumbing Fixture Fitting & Trim Mfg,332913 - Plumbing Fixture Fitting and Trim Manufacturing
+332919,Other Metal Valve and Pipe Fitting Manufacturing,exact,Other Metal Valve & Pipe Fitting Mfg,332919 | Other Metal Valve & Pipe Fitting Mfg,332919 - Other Metal Valve and Pipe Fitting Manufacturing
+332991,Ball and Roller Bearing Manufacturing,exact,Ball & Roller Bearing Mfg,332991 | Ball & Roller Bearing Mfg,332991 - Ball and Roller Bearing Manufacturing
+332992,Small Arms Ammunition Manufacturing,exact,Small Arms Ammunition Mfg,332992 | Small Arms Ammunition Mfg,332992 - Small Arms Ammunition Manufacturing
+332993,Ammunition (except Small Arms) Manufacturing,exact,Ammunition (except Small Arms) Mfg,332993 | Ammunition (except Small Arms) Mfg,332993 - Ammunition (except Small Arms) Manufacturing
+332994,"Small Arms, Ordnance, and Ordnance Accessories Manufacturing",exact,"Small Arms, Ordnance, & Ordnance Acce...","332994 | Small Arms, Ordnance, & Ordnance Acce...","332994 - Small Arms, Ordnance, and Ordnance Accessories Manufacturing"
+332996,Fabricated Pipe and Pipe Fitting Manufacturing,exact,Fab Pipe & Pipe Fitting Mfg,332996 | Fab Pipe & Pipe Fitting Mfg,332996 - Fabricated Pipe and Pipe Fitting Manufacturing
+332999,All Other Miscellaneous Fabricated Metal Product Manufacturing,exact,All Other Misc Fab Metal Prod Mfg,332999 | All Other Misc Fab Metal Prod Mfg,332999 - All Other Miscellaneous Fabricated Metal Product Manufacturing
+333111,Farm Machinery and Equipment Manufacturing,exact,Farm Mach & Equip Mfg,333111 | Farm Mach & Equip Mfg,333111 - Farm Machinery and Equipment Manufacturing
+333112,Lawn and Garden Tractor and Home Lawn and Garden Equipment Manufacturing,exact,Lawn & Garden Tractor & Home Lawn & G...,333112 | Lawn & Garden Tractor & Home Lawn & G...,333112 - Lawn and Garden Tractor and Home Lawn and Garden Equipment Manufacturing
+333120,Construction Machinery Manufacturing,exact,Construction Mach Mfg,333120 | Construction Mach Mfg,333120 - Construction Machinery Manufacturing
+333131,Mining Machinery and Equipment Manufacturing,exact,Mining Mach & Equip Mfg,333131 | Mining Mach & Equip Mfg,333131 - Mining Machinery and Equipment Manufacturing
+333132,Oil and Gas Field Machinery and Equipment Manufacturing,exact,Oil & Gas Field Mach & Equip Mfg,333132 | Oil & Gas Field Mach & Equip Mfg,333132 - Oil and Gas Field Machinery and Equipment Manufacturing
+333241,Food Product Machinery Manufacturing,exact,Food Prod Mach Mfg,333241 | Food Prod Mach Mfg,333241 - Food Product Machinery Manufacturing
+333242,Semiconductor Machinery Manufacturing,exact,Semiconductor Mach Mfg,333242 | Semiconductor Mach Mfg,333242 - Semiconductor Machinery Manufacturing
+333243,"Sawmill, Woodworking, and Paper Machinery Manufacturing",exact,"Sawmill, Woodworking, & Paper Mach Mfg","333243 | Sawmill, Woodworking, & Paper Mach Mfg","333243 - Sawmill, Woodworking, and Paper Machinery Manufacturing"
+333244,Industrial Machinery ManufacturingT,prefix_5_digit,Industrial Mach MfgT,333244 | Industrial Mach MfgT,333244 - Industrial Machinery ManufacturingT
+333249,Industrial Machinery ManufacturingT,prefix_5_digit,Industrial Mach MfgT,333249 | Industrial Mach MfgT,333249 - Industrial Machinery ManufacturingT
+333314,Commercial and Service Industry Machinery ManufacturingT,prefix_5_digit,Commercial & Svc Ind Mach MfgT,333314 | Commercial & Svc Ind Mach MfgT,333314 - Commercial and Service Industry Machinery ManufacturingT
+333316,Commercial and Service Industry Machinery ManufacturingT,prefix_5_digit,Commercial & Svc Ind Mach MfgT,333316 | Commercial & Svc Ind Mach MfgT,333316 - Commercial and Service Industry Machinery ManufacturingT
+333318,Commercial and Service Industry Machinery ManufacturingT,prefix_5_digit,Commercial & Svc Ind Mach MfgT,333318 | Commercial & Svc Ind Mach MfgT,333318 - Commercial and Service Industry Machinery ManufacturingT
+333413,Industrial and Commercial Fan and Blower and Air Purification Equipment Manufacturing,exact,Industrial & Commercial Fan & Blower ...,333413 | Industrial & Commercial Fan & Blower ...,333413 - Industrial and Commercial Fan and Blower and Air Purification Equipment Manufacturing
+333414,Heating Equipment (except Warm Air Furnaces) Manufacturing,exact,Heating Equip (except Warm Air Furnac...,333414 | Heating Equip (except Warm Air Furnac...,333414 - Heating Equipment (except Warm Air Furnaces) Manufacturing
+333415,Air-Conditioning and Warm Air Heating Equipment and Commercial and Industrial Refrigeration Equipment Manufacturing,exact,Air-Conditioning & Warm Air Heating E...,333415 | Air-Conditioning & Warm Air Heating E...,333415 - Air-Conditioning and Warm Air Heating Equipment and Commercial and Industrial Refrigeration Equipment Manufacturing
+333511,Industrial Mold Manufacturing,exact,Industrial Mold Mfg,333511 | Industrial Mold Mfg,333511 - Industrial Mold Manufacturing
+333514,"Special Die and Tool, Die Set, Jig, and Fixture Manufacturing",exact,"Special Die & Tool, Die Set, Jig, & F...","333514 | Special Die & Tool, Die Set, Jig, & F...","333514 - Special Die and Tool, Die Set, Jig, and Fixture Manufacturing"
+333515,Cutting Tool and Machine Tool Accessory Manufacturing,exact,Cutting Tool & Machine Tool Accessory...,333515 | Cutting Tool & Machine Tool Accessory...,333515 - Cutting Tool and Machine Tool Accessory Manufacturing
+333517,Machine Tool Manufacturing,exact,Machine Tool Mfg,333517 | Machine Tool Mfg,333517 - Machine Tool Manufacturing
+333519,Rolling Mill and Other Metalworking Machinery Manufacturing,exact,Rolling Mill & Other Metalworking Mac...,333519 | Rolling Mill & Other Metalworking Mac...,333519 - Rolling Mill and Other Metalworking Machinery Manufacturing
+333611,Turbine and Turbine Generator Set Units Manufacturing,exact,Turbine & Turbine Generator Set Units...,333611 | Turbine & Turbine Generator Set Units...,333611 - Turbine and Turbine Generator Set Units Manufacturing
+333612,"Speed Changer, Industrial High-Speed Drive, and Gear Manufacturing",exact,"Speed Changer, Industrial High-Speed ...","333612 | Speed Changer, Industrial High-Speed ...","333612 - Speed Changer, Industrial High-Speed Drive, and Gear Manufacturing"
+333613,Mechanical Power Transmission Equipment Manufacturing,exact,Mechanical Power Transmission Equip Mfg,333613 | Mechanical Power Transmission Equip Mfg,333613 - Mechanical Power Transmission Equipment Manufacturing
+333618,Other Engine Equipment Manufacturing,exact,Other Engine Equip Mfg,333618 | Other Engine Equip Mfg,333618 - Other Engine Equipment Manufacturing
+333911,Pump and Compressor ManufacturingT,prefix_5_digit,Pump & Compressor MfgT,333911 | Pump & Compressor MfgT,333911 - Pump and Compressor ManufacturingT
+333912,Air and Gas Compressor Manufacturing,exact,Air & Gas Compressor Mfg,333912 | Air & Gas Compressor Mfg,333912 - Air and Gas Compressor Manufacturing
+333913,Pump and Compressor ManufacturingT,prefix_5_digit,Pump & Compressor MfgT,333913 | Pump & Compressor MfgT,333913 - Pump and Compressor ManufacturingT
+333921,Elevator and Moving Stairway Manufacturing,exact,Elevator & Moving Stairway Mfg,333921 | Elevator & Moving Stairway Mfg,333921 - Elevator and Moving Stairway Manufacturing
+333922,Conveyor and Conveying Equipment Manufacturing,exact,Conveyor & Conveying Equip Mfg,333922 | Conveyor & Conveying Equip Mfg,333922 - Conveyor and Conveying Equipment Manufacturing
+333923,"Overhead Traveling Crane, Hoist, and Monorail System Manufacturing",exact,"Overhead Traveling Crane, Hoist, & Mo...","333923 | Overhead Traveling Crane, Hoist, & Mo...","333923 - Overhead Traveling Crane, Hoist, and Monorail System Manufacturing"
+333924,"Industrial Truck, Tractor, Trailer, and Stacker Machinery Manufacturing",exact,"Industrial Truck, Tractor, Trailer, &...","333924 | Industrial Truck, Tractor, Trailer, &...","333924 - Industrial Truck, Tractor, Trailer, and Stacker Machinery Manufacturing"
+333991,Power-Driven Handtool Manufacturing,exact,Power-Driven H&tool Mfg,333991 | Power-Driven H&tool Mfg,333991 - Power-Driven Handtool Manufacturing
+333992,Welding and Soldering Equipment Manufacturing,exact,Welding & Soldering Equip Mfg,333992 | Welding & Soldering Equip Mfg,333992 - Welding and Soldering Equipment Manufacturing
+333993,Packaging Machinery Manufacturing,exact,Pkg Mach Mfg,333993 | Pkg Mach Mfg,333993 - Packaging Machinery Manufacturing
+333994,Industrial Process Furnace and Oven Manufacturing,exact,Industrial Process Furnace & Oven Mfg,333994 | Industrial Process Furnace & Oven Mfg,333994 - Industrial Process Furnace and Oven Manufacturing
+333995,Fluid Power Cylinder and Actuator Manufacturing,exact,Fluid Power Cylinder & Actuator Mfg,333995 | Fluid Power Cylinder & Actuator Mfg,333995 - Fluid Power Cylinder and Actuator Manufacturing
+333996,Fluid Power Pump and Motor Manufacturing,exact,Fluid Power Pump & Motor Mfg,333996 | Fluid Power Pump & Motor Mfg,333996 - Fluid Power Pump and Motor Manufacturing
+333997,All Other General Purpose Machinery ManufacturingT,prefix_5_digit,All Other General Purpose Mach MfgT,333997 | All Other General Purpose Mach MfgT,333997 - All Other General Purpose Machinery ManufacturingT
+333999,All Other General Purpose Machinery ManufacturingT,prefix_5_digit,All Other General Purpose Mach MfgT,333999 | All Other General Purpose Mach MfgT,333999 - All Other General Purpose Machinery ManufacturingT
+334111,Electronic Computer Manufacturing,exact,Elec Computer Mfg,334111 | Elec Computer Mfg,334111 - Electronic Computer Manufacturing
+334112,Computer Storage Device Manufacturing,exact,Computer Storage Device Mfg,334112 | Computer Storage Device Mfg,334112 - Computer Storage Device Manufacturing
+334118,Computer Terminal and Other Computer Peripheral Equipment Manufacturing,exact,Computer Terminal & Other Computer Pe...,334118 | Computer Terminal & Other Computer Pe...,334118 - Computer Terminal and Other Computer Peripheral Equipment Manufacturing
+334210,Telephone Apparatus Manufacturing,exact,Telephone Apparatus Mfg,334210 | Telephone Apparatus Mfg,334210 - Telephone Apparatus Manufacturing
+334220,Radio and Television Broadcasting and Wireless Communications Equipment Manufacturing,exact,Radio & Television Broadcasting & Wir...,334220 | Radio & Television Broadcasting & Wir...,334220 - Radio and Television Broadcasting and Wireless Communications Equipment Manufacturing
+334290,Other Communications Equipment Manufacturing,exact,Other Communications Equip Mfg,334290 | Other Communications Equip Mfg,334290 - Other Communications Equipment Manufacturing
+334310,Audio and Video Equipment Manufacturing,exact,Audio & Video Equip Mfg,334310 | Audio & Video Equip Mfg,334310 - Audio and Video Equipment Manufacturing
+334412,Bare Printed Circuit Board Manufacturing,exact,Bare Printed Circuit Board Mfg,334412 | Bare Printed Circuit Board Mfg,334412 - Bare Printed Circuit Board Manufacturing
+334413,Semiconductor and Related Device Manufacturing,exact,Semiconductor & Related Device Mfg,334413 | Semiconductor & Related Device Mfg,334413 - Semiconductor and Related Device Manufacturing
+334416,"Capacitor, Resistor, Coil, Transformer, and Other Inductor Manufacturing",exact,"Capacitor, Resistor, Coil, Transforme...","334416 | Capacitor, Resistor, Coil, Transforme...","334416 - Capacitor, Resistor, Coil, Transformer, and Other Inductor Manufacturing"
+334417,Electronic Connector Manufacturing,exact,Elec Connector Mfg,334417 | Elec Connector Mfg,334417 - Electronic Connector Manufacturing
+334418,Printed Circuit Assembly (Electronic Assembly) Manufacturing,exact,Printed Circuit Assembly (Elec Assemb...,334418 | Printed Circuit Assembly (Elec Assemb...,334418 - Printed Circuit Assembly (Electronic Assembly) Manufacturing
+334419,Other Electronic Component Manufacturing,exact,Other Elec Component Mfg,334419 | Other Elec Component Mfg,334419 - Other Electronic Component Manufacturing
+334510,Electromedical and Electrotherapeutic Apparatus Manufacturing,exact,Electromedical & Electrotherapeutic A...,334510 | Electromedical & Electrotherapeutic A...,334510 - Electromedical and Electrotherapeutic Apparatus Manufacturing
+334511,"Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing",exact,"Search, Detection, Navigation, Guidan...","334511 | Search, Detection, Navigation, Guidan...","334511 - Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing"
+334512,"Automatic Environmental Control Manufacturing for Residential, Commercial, and Appliance Use",exact,Automatic Environmental Control Mfg f...,334512 | Automatic Environmental Control Mfg f...,"334512 - Automatic Environmental Control Manufacturing for Residential, Commercial, and Appliance Use"
+334513,"Instruments and Related Products Manufacturing for Measuring, Displaying, and Controlling Industrial Process Variables",exact,Instruments & Related Prod Mfg for Me...,334513 | Instruments & Related Prod Mfg for Me...,"334513 - Instruments and Related Products Manufacturing for Measuring, Displaying, and Controlling Industrial Process Variables"
+334514,Totalizing Fluid Meter and Counting Device Manufacturing,exact,Totalizing Fluid Meter & Counting Dev...,334514 | Totalizing Fluid Meter & Counting Dev...,334514 - Totalizing Fluid Meter and Counting Device Manufacturing
+334515,Instrument Manufacturing for Measuring and Testing Electricity and Electrical Signals,exact,Instrument Mfg for Measuring & Testin...,334515 | Instrument Mfg for Measuring & Testin...,334515 - Instrument Manufacturing for Measuring and Testing Electricity and Electrical Signals
+334516,Analytical Laboratory Instrument Manufacturing,exact,Analytical Laboratory Instrument Mfg,334516 | Analytical Laboratory Instrument Mfg,334516 - Analytical Laboratory Instrument Manufacturing
+334517,Irradiation Apparatus Manufacturing,exact,Irradiation Apparatus Mfg,334517 | Irradiation Apparatus Mfg,334517 - Irradiation Apparatus Manufacturing
+334519,Other Measuring and Controlling Device Manufacturing,exact,Other Measuring & Controlling Device Mfg,334519 | Other Measuring & Controlling Device Mfg,334519 - Other Measuring and Controlling Device Manufacturing
+334613,Manufacturing and Reproducing Magnetic and Optical MediaT,prefix_5_digit,Mfg & Reproducing Magnetic & Optical ...,334613 | Mfg & Reproducing Magnetic & Optical ...,334613 - Manufacturing and Reproducing Magnetic and Optical MediaT
+334614,Manufacturing and Reproducing Magnetic and Optical MediaT,prefix_5_digit,Mfg & Reproducing Magnetic & Optical ...,334614 | Mfg & Reproducing Magnetic & Optical ...,334614 - Manufacturing and Reproducing Magnetic and Optical MediaT
+335110,Electric Lighting Equipment ManufacturingT,prefix_4_digit,Electric Lighting Equip MfgT,335110 | Electric Lighting Equip MfgT,335110 - Electric Lighting Equipment ManufacturingT
+335121,Electric Lighting Equipment ManufacturingT,prefix_4_digit,Electric Lighting Equip MfgT,335121 | Electric Lighting Equip MfgT,335121 - Electric Lighting Equipment ManufacturingT
+335122,Electric Lighting Equipment ManufacturingT,prefix_4_digit,Electric Lighting Equip MfgT,335122 | Electric Lighting Equip MfgT,335122 - Electric Lighting Equipment ManufacturingT
+335129,Electric Lighting Equipment ManufacturingT,prefix_4_digit,Electric Lighting Equip MfgT,335129 | Electric Lighting Equip MfgT,335129 - Electric Lighting Equipment ManufacturingT
+335210,Small Electrical Appliance Manufacturing,exact,Small Elec Appliance Mfg,335210 | Small Elec Appliance Mfg,335210 - Small Electrical Appliance Manufacturing
+335221,Major Household Appliance ManufacturingT,prefix_5_digit,Major Household Appliance MfgT,335221 | Major Household Appliance MfgT,335221 - Major Household Appliance ManufacturingT
+335222,Major Household Appliance ManufacturingT,prefix_5_digit,Major Household Appliance MfgT,335222 | Major Household Appliance MfgT,335222 - Major Household Appliance ManufacturingT
+335224,Major Household Appliance ManufacturingT,prefix_5_digit,Major Household Appliance MfgT,335224 | Major Household Appliance MfgT,335224 - Major Household Appliance ManufacturingT
+335228,Major Household Appliance ManufacturingT,prefix_5_digit,Major Household Appliance MfgT,335228 | Major Household Appliance MfgT,335228 - Major Household Appliance ManufacturingT
+335311,"Power, Distribution, and Specialty Transformer Manufacturing",exact,"Power, Distribution, & Specialty Tran...","335311 | Power, Distribution, & Specialty Tran...","335311 - Power, Distribution, and Specialty Transformer Manufacturing"
+335312,Motor and Generator Manufacturing,exact,Motor & Generator Mfg,335312 | Motor & Generator Mfg,335312 - Motor and Generator Manufacturing
+335313,Switchgear and Switchboard Apparatus Manufacturing,exact,Switchgear & Switchboard Apparatus Mfg,335313 | Switchgear & Switchboard Apparatus Mfg,335313 - Switchgear and Switchboard Apparatus Manufacturing
+335314,Relay and Industrial Control Manufacturing,exact,Relay & Industrial Control Mfg,335314 | Relay & Industrial Control Mfg,335314 - Relay and Industrial Control Manufacturing
+335911,Battery ManufacturingT,prefix_5_digit,Battery MfgT,335911 | Battery MfgT,335911 - Battery ManufacturingT
+335912,Battery ManufacturingT,prefix_5_digit,Battery MfgT,335912 | Battery MfgT,335912 - Battery ManufacturingT
+335921,Fiber Optic Cable Manufacturing,exact,Fiber Optic Cable Mfg,335921 | Fiber Optic Cable Mfg,335921 - Fiber Optic Cable Manufacturing
+335929,Other Communication and Energy Wire Manufacturing,exact,Other Communication & Energy Wire Mfg,335929 | Other Communication & Energy Wire Mfg,335929 - Other Communication and Energy Wire Manufacturing
+335931,Current-Carrying Wiring Device Manufacturing,exact,Current-Carrying Wiring Device Mfg,335931 | Current-Carrying Wiring Device Mfg,335931 - Current-Carrying Wiring Device Manufacturing
+335932,Noncurrent-Carrying Wiring Device Manufacturing,exact,Noncurrent-Carrying Wiring Device Mfg,335932 | Noncurrent-Carrying Wiring Device Mfg,335932 - Noncurrent-Carrying Wiring Device Manufacturing
+335991,Carbon and Graphite Product Manufacturing,exact,Carbon & Graphite Prod Mfg,335991 | Carbon & Graphite Prod Mfg,335991 - Carbon and Graphite Product Manufacturing
+335999,All Other Miscellaneous Electrical Equipment and Component Manufacturing,exact,All Other Misc Elec Equip & Component...,335999 | All Other Misc Elec Equip & Component...,335999 - All Other Miscellaneous Electrical Equipment and Component Manufacturing
+336111,Automobile and Light Duty Motor Vehicle ManufacturingT,prefix_5_digit,Automobile & Light Duty Motor Vehicle...,336111 | Automobile & Light Duty Motor Vehicle...,336111 - Automobile and Light Duty Motor Vehicle ManufacturingT
+336112,Automobile and Light Duty Motor Vehicle ManufacturingT,prefix_5_digit,Automobile & Light Duty Motor Vehicle...,336112 | Automobile & Light Duty Motor Vehicle...,336112 - Automobile and Light Duty Motor Vehicle ManufacturingT
+336120,Heavy Duty Truck Manufacturing,exact,Heavy Duty Truck Mfg,336120 | Heavy Duty Truck Mfg,336120 - Heavy Duty Truck Manufacturing
+336211,Motor Vehicle Body Manufacturing,exact,Motor Vehicle Body Mfg,336211 | Motor Vehicle Body Mfg,336211 - Motor Vehicle Body Manufacturing
+336212,Truck Trailer Manufacturing,exact,Truck Trailer Mfg,336212 | Truck Trailer Mfg,336212 - Truck Trailer Manufacturing
+336213,Motor Home Manufacturing,exact,Motor Home Mfg,336213 | Motor Home Mfg,336213 - Motor Home Manufacturing
+336214,Travel Trailer and Camper Manufacturing,exact,Travel Trailer & Camper Mfg,336214 | Travel Trailer & Camper Mfg,336214 - Travel Trailer and Camper Manufacturing
+336310,Motor Vehicle Gasoline Engine and Engine Parts Manufacturing,exact,Motor Vehicle Gasoline Engine & Engin...,336310 | Motor Vehicle Gasoline Engine & Engin...,336310 - Motor Vehicle Gasoline Engine and Engine Parts Manufacturing
+336320,Motor Vehicle Electrical and Electronic Equipment Manufacturing,exact,Motor Vehicle Elec & Elec Equip Mfg,336320 | Motor Vehicle Elec & Elec Equip Mfg,336320 - Motor Vehicle Electrical and Electronic Equipment Manufacturing
+336330,Motor Vehicle Steering and Suspension Components (except Spring) Manufacturing,exact,Motor Vehicle Steering & Suspension C...,336330 | Motor Vehicle Steering & Suspension C...,336330 - Motor Vehicle Steering and Suspension Components (except Spring) Manufacturing
+336340,Motor Vehicle Brake System Manufacturing,exact,Motor Vehicle Brake System Mfg,336340 | Motor Vehicle Brake System Mfg,336340 - Motor Vehicle Brake System Manufacturing
+336350,Motor Vehicle Transmission and Power Train Parts Manufacturing,exact,Motor Vehicle Transmission & Power Tr...,336350 | Motor Vehicle Transmission & Power Tr...,336350 - Motor Vehicle Transmission and Power Train Parts Manufacturing
+336360,Motor Vehicle Seating and Interior Trim Manufacturing,exact,Motor Vehicle Seating & Interior Trim...,336360 | Motor Vehicle Seating & Interior Trim...,336360 - Motor Vehicle Seating and Interior Trim Manufacturing
+336370,Motor Vehicle Metal Stamping,exact,Motor Vehicle Metal Stamping,336370 | Motor Vehicle Metal Stamping,336370 - Motor Vehicle Metal Stamping
+336390,Other Motor Vehicle Parts Manufacturing,exact,Other Motor Vehicle Parts Mfg,336390 | Other Motor Vehicle Parts Mfg,336390 - Other Motor Vehicle Parts Manufacturing
+336411,Aircraft Manufacturing,exact,Aircraft Mfg,336411 | Aircraft Mfg,336411 - Aircraft Manufacturing
+336412,Aircraft Engine and Engine Parts Manufacturing,exact,Aircraft Engine & Engine Parts Mfg,336412 | Aircraft Engine & Engine Parts Mfg,336412 - Aircraft Engine and Engine Parts Manufacturing
+336413,Other Aircraft Parts and Auxiliary Equipment Manufacturing,exact,Other Aircraft Parts & Auxiliary Equi...,336413 | Other Aircraft Parts & Auxiliary Equi...,336413 - Other Aircraft Parts and Auxiliary Equipment Manufacturing
+336414,Guided Missile and Space Vehicle Manufacturing,exact,Guided Missile & Space Vehicle Mfg,336414 | Guided Missile & Space Vehicle Mfg,336414 - Guided Missile and Space Vehicle Manufacturing
+336415,Guided Missile and Space Vehicle Propulsion Unit and Propulsion Unit Parts Manufacturing,exact,Guided Missile & Space Vehicle Propul...,336415 | Guided Missile & Space Vehicle Propul...,336415 - Guided Missile and Space Vehicle Propulsion Unit and Propulsion Unit Parts Manufacturing
+336419,Other Guided Missile and Space Vehicle Parts and Auxiliary Equipment Manufacturing,exact,Other Guided Missile & Space Vehicle ...,336419 | Other Guided Missile & Space Vehicle ...,336419 - Other Guided Missile and Space Vehicle Parts and Auxiliary Equipment Manufacturing
+336510,Railroad Rolling Stock Manufacturing,exact,Railroad Rolling Stock Mfg,336510 | Railroad Rolling Stock Mfg,336510 - Railroad Rolling Stock Manufacturing
+336611,Ship Building and Repairing,exact,Ship Building & Repairing,336611 | Ship Building & Repairing,336611 - Ship Building and Repairing
+336612,Boat Building,exact,Boat Building,336612 | Boat Building,336612 - Boat Building
+336991,"Motorcycle, Bicycle, and Parts Manufacturing",exact,"Motorcycle, Bicycle, & Parts Mfg","336991 | Motorcycle, Bicycle, & Parts Mfg","336991 - Motorcycle, Bicycle, and Parts Manufacturing"
+336992,"Military Armored Vehicle, Tank, and Tank Component Manufacturing",exact,"Military Armored Vehicle, Tank, & Tan...","336992 | Military Armored Vehicle, Tank, & Tan...","336992 - Military Armored Vehicle, Tank, and Tank Component Manufacturing"
+336999,All Other Transportation Equipment Manufacturing,exact,All Other Transport Equip Mfg,336999 | All Other Transport Equip Mfg,336999 - All Other Transportation Equipment Manufacturing
+337110,Wood Kitchen Cabinet and Countertop Manufacturing,exact,Wood Kitchen Cabinet & Countertop Mfg,337110 | Wood Kitchen Cabinet & Countertop Mfg,337110 - Wood Kitchen Cabinet and Countertop Manufacturing
+337121,Upholstered Household Furniture Manufacturing,exact,Upholstered Household Furn Mfg,337121 | Upholstered Household Furn Mfg,337121 - Upholstered Household Furniture Manufacturing
+337122,Nonupholstered Wood Household Furniture Manufacturing,exact,Nonupholstered Wood Household Furn Mfg,337122 | Nonupholstered Wood Household Furn Mfg,337122 - Nonupholstered Wood Household Furniture Manufacturing
+337124,Household and Institutional Furniture ManufacturingT,prefix_5_digit,Household & Institutional Furn MfgT,337124 | Household & Institutional Furn MfgT,337124 - Household and Institutional Furniture ManufacturingT
+337125,Household and Institutional Furniture ManufacturingT,prefix_5_digit,Household & Institutional Furn MfgT,337125 | Household & Institutional Furn MfgT,337125 - Household and Institutional Furniture ManufacturingT
+337127,Institutional Furniture Manufacturing,exact,Institutional Furn Mfg,337127 | Institutional Furn Mfg,337127 - Institutional Furniture Manufacturing
+337211,Wood Office Furniture Manufacturing,exact,Wood Office Furn Mfg,337211 | Wood Office Furn Mfg,337211 - Wood Office Furniture Manufacturing
+337212,Custom Architectural Woodwork and Millwork Manufacturing,exact,Custom Architectural Woodwork & Millw...,337212 | Custom Architectural Woodwork & Millw...,337212 - Custom Architectural Woodwork and Millwork Manufacturing
+337214,Office Furniture (except Wood) Manufacturing,exact,Office Furn (except Wood) Mfg,337214 | Office Furn (except Wood) Mfg,337214 - Office Furniture (except Wood) Manufacturing
+337215,"Showcase, Partition, Shelving, and Locker Manufacturing",exact,"Showcase, Partition, Shelving, & Lock...","337215 | Showcase, Partition, Shelving, & Lock...","337215 - Showcase, Partition, Shelving, and Locker Manufacturing"
+337910,Mattress Manufacturing,exact,Mattress Mfg,337910 | Mattress Mfg,337910 - Mattress Manufacturing
+337920,Blind and Shade Manufacturing,exact,Blind & Shade Mfg,337920 | Blind & Shade Mfg,337920 - Blind and Shade Manufacturing
+339112,Surgical and Medical Instrument Manufacturing,exact,Surgical & Med Instrument Mfg,339112 | Surgical & Med Instrument Mfg,339112 - Surgical and Medical Instrument Manufacturing
+339113,Surgical Appliance and Supplies Manufacturing,exact,Surgical Appliance & Supp Mfg,339113 | Surgical Appliance & Supp Mfg,339113 - Surgical Appliance and Supplies Manufacturing
+339114,Dental Equipment and Supplies Manufacturing,exact,Dental Equip & Supp Mfg,339114 | Dental Equip & Supp Mfg,339114 - Dental Equipment and Supplies Manufacturing
+339115,Ophthalmic Goods Manufacturing,exact,Ophthalmic Goods Mfg,339115 | Ophthalmic Goods Mfg,339115 - Ophthalmic Goods Manufacturing
+339116,Dental Laboratories,exact,Dental Laboratories,339116 | Dental Laboratories,339116 - Dental Laboratories
+339910,Jewelry and Silverware Manufacturing,exact,Jewelry & Silverware Mfg,339910 | Jewelry & Silverware Mfg,339910 - Jewelry and Silverware Manufacturing
+339920,Sporting and Athletic Goods Manufacturing,exact,Sporting & Athletic Goods Mfg,339920 | Sporting & Athletic Goods Mfg,339920 - Sporting and Athletic Goods Manufacturing
+339930,"Doll, Toy, and Game Manufacturing",exact,"Doll, Toy, & Game Mfg","339930 | Doll, Toy, & Game Mfg","339930 - Doll, Toy, and Game Manufacturing"
+339940,Office Supplies (except Paper) Manufacturing,exact,Office Supp (except Paper) Mfg,339940 | Office Supp (except Paper) Mfg,339940 - Office Supplies (except Paper) Manufacturing
+339950,Sign Manufacturing,exact,Sign Mfg,339950 | Sign Mfg,339950 - Sign Manufacturing
+339991,"Gasket, Packing, and Sealing Device Manufacturing",exact,"Gasket, Packing, & Sealing Device Mfg","339991 | Gasket, Packing, & Sealing Device Mfg","339991 - Gasket, Packing, and Sealing Device Manufacturing"
+339992,Musical Instrument Manufacturing,exact,Musical Instrument Mfg,339992 | Musical Instrument Mfg,339992 - Musical Instrument Manufacturing
+339993,"Fastener, Button, Needle, and Pin Manufacturing",exact,"Fastener, Button, Needle, & Pin Mfg","339993 | Fastener, Button, Needle, & Pin Mfg","339993 - Fastener, Button, Needle, and Pin Manufacturing"
+339994,"Broom, Brush, and Mop Manufacturing",exact,"Broom, Brush, & Mop Mfg","339994 | Broom, Brush, & Mop Mfg","339994 - Broom, Brush, and Mop Manufacturing"
+339995,Burial Casket Manufacturing,exact,Burial Casket Mfg,339995 | Burial Casket Mfg,339995 - Burial Casket Manufacturing
+339999,All Other Miscellaneous Manufacturing,exact,All Other Misc Mfg,339999 | All Other Misc Mfg,339999 - All Other Miscellaneous Manufacturing

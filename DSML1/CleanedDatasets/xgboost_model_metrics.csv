@@ -1,0 +1,3 @@
+model,rmse,mae,r2,rows_used,observed_years_used,future_projection_years,forecast_style
+productivity,125.1715541102699,58.09190542474715,-0.002317473185825758,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+revenue_per_worker,109.6260082391416,66.37794310872752,0.8445611730568077,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
