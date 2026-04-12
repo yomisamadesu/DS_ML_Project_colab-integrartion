@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+from scipy.stats import zscore
 from xgboost import XGBRegressor
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -444,6 +444,454 @@ model_df = df[required_cols].copy()
 model_df = model_df.loc[:, ~model_df.columns.duplicated()].copy()
 model_df = model_df.dropna().copy()
 
+# Output single csv
+# ============================================================
+# MASTER DATASET CREATION SCRIPT
+# Combines NBER + Robotics + IMF + World Bank + OECD
+# ============================================================
+
+import pandas as pd
+import numpy as np
+import re
+
+# ------------------------------------------------------------
+# 1. FILE PATHS
+# ------------------------------------------------------------
+NBER_FILE = "Datasets/nberces5818v1_n2012.csv"
+ROBOTICS_FILE = "Datasets/robotics_data.csv"
+IMF_FILE = "Datasets/IMF.csv"
+WB_FILE = "Datasets/API_TX.VAL.MANF.ZS.UN_DS2_en_csv_v2_7563.csv"
+OECD_FILE = "Datasets/OECD_CSV_Version_OECD.STI.PIE.csv"  # rename if needed
+OUTPUT_FILE = "cleaned_master_dataset.csv"
+
+
+# ------------------------------------------------------------
+# 2. HELPER FUNCTIONS
+# ------------------------------------------------------------
+def clean_columns(df):
+    """Standardize column names."""
+    df = df.copy()
+    df.columns = (
+        df.columns.str.strip()
+        .str.lower()
+        .str.replace(" ", "_", regex=False)
+        .str.replace("-", "_", regex=False)
+        .str.replace(r"[^\w]+", "_", regex=True)
+        .str.strip("_")
+    )
+    return df
+
+
+def make_naics_str(series):
+    """Convert NAICS-like codes to clean string values."""
+    return (
+        series.astype(str)
+        .str.strip()
+        .str.replace(r"\.0$", "", regex=True)
+        .str.replace(r"[^\d]", "", regex=True)
+    )
+
+
+def safe_divide(a, b):
+    """Avoid divide-by-zero errors."""
+    return a / b.replace(0, np.nan)
+
+
+def find_column(df, candidates):
+    """Return first matching column name from a list of candidates."""
+    for c in candidates:
+        if c in df.columns:
+            return c
+    return None
+
+
+def keep_year_columns(df):
+    """Return columns that look like years."""
+    year_cols = [c for c in df.columns if re.fullmatch(r"\d{4}", str(c))]
+    return year_cols
+
+
+
+nber = pd.read_csv(NBER_FILE)
+robotics = pd.read_csv(ROBOTICS_FILE)
+imf = pd.read_csv(IMF_FILE, encoding="latin-1")
+wb = pd.read_csv(WB_FILE, skiprows=4)
+oecd = pd.read_csv(OECD_FILE)
+
+# Clean NBER data
+nber = clean_columns(nber)
+
+# Ensure key columns exist
+if "naics" not in nber.columns:
+    raise ValueError("NBER dataset must contain a 'naics' column.")
+if "year" not in nber.columns:
+    raise ValueError("NBER dataset must contain a 'year' column.")
+
+nber["naics"] = make_naics_str(nber["naics"])
+nber["year"] = pd.to_numeric(nber["year"], errors="coerce")
+
+# Keep manufacturing NAICS beginning with 3
+nber = nber[nber["naics"].str.startswith("3", na=False)].copy()
+
+# Convert major numeric columns if they exist
+nber_numeric_cols = [
+    "emp", "pay", "prode", "prodh", "prodw", "vship", "matcost", "vadd",
+    "cap", "equip", "plant", "invest"
+]
+for col in nber_numeric_cols:
+    if col in nber.columns:
+        nber[col] = pd.to_numeric(nber[col], errors="coerce")
+
+# Feature engineering
+if {"cap", "emp"}.issubset(nber.columns):
+    nber["cap_labor_ratio"] = safe_divide(nber["cap"], nber["emp"])
+
+if {"emp", "prode"}.issubset(nber.columns):
+    nber["non_prod_workers"] = nber["emp"] - nber["prode"]
+
+if {"vadd", "emp"}.issubset(nber.columns):
+    nber["labor_productivity"] = safe_divide(nber["vadd"], nber["emp"])
+
+if {"vship", "emp"}.issubset(nber.columns):
+    nber["revenue_per_worker"] = safe_divide(nber["vship"], nber["emp"])
+
+robotics = clean_columns(robotics)
+
+robotics_naics_col = find_column(robotics, ["naics", "naics_code", "industry_code"])
+robotics_year_col = find_column(robotics, ["year", "time_period"])
+
+if robotics_naics_col is None or robotics_year_col is None:
+    print("Warning: Robotics dataset is missing a clear NAICS/year column. Skipping merge-ready robotics cleanup.")
+    robotics_clean = pd.DataFrame(columns=["naics", "year"])
+else:
+    robotics = robotics.rename(columns={
+        robotics_naics_col: "naics",
+        robotics_year_col: "year"
+    })
+
+    robotics["naics"] = make_naics_str(robotics["naics"])
+    robotics["year"] = pd.to_numeric(robotics["year"], errors="coerce")
+
+    # Convert numeric columns
+    for col in robotics.columns:
+        if col not in ["naics", "year"]:
+            robotics[col] = pd.to_numeric(robotics[col], errors="coerce")
+
+    # Aggregate to naics-year if duplicates exist
+    robotics_clean = robotics.groupby(["naics", "year"], as_index=False).mean(numeric_only=True)
+
+# Clean IMF dataset
+print("Cleaning IMF dataset...")
+
+imf = clean_columns(imf)
+
+country_col = find_column(imf, ["country", "country_name"])
+subject_col = find_column(imf, ["weo_subject_code", "subject_code", "weo_subject"])
+scale_col = find_column(imf, ["scale", "units"])
+year_cols = keep_year_columns(imf)
+
+if country_col is None or subject_col is None:
+    print("Warning: IMF dataset format not recognized. Skipping IMF merge.")
+    imf_wide = pd.DataFrame(columns=["year"])
+else:
+    imf_us = imf[imf[country_col].astype(str).str.strip().str.lower().eq("united states")].copy()
+
+    id_vars = [country_col, subject_col]
+    if scale_col is not None:
+        id_vars.append(scale_col)
+
+    imf_long = imf_us.melt(
+        id_vars=id_vars,
+        value_vars=year_cols,
+        var_name="year",
+        value_name="imf_value"
+    )
+
+    imf_long["year"] = pd.to_numeric(imf_long["year"], errors="coerce")
+    imf_long["imf_value"] = pd.to_numeric(imf_long["imf_value"], errors="coerce")
+
+    # Pivot selected indicators to columns
+    imf_wide = imf_long.pivot_table(
+        index="year",
+        columns=subject_col,
+        values="imf_value",
+        aggfunc="mean"
+    ).reset_index()
+
+    imf_wide = imf_wide.rename(columns={
+        "ngdpdpc": "imf_gdp_per_capita",
+        "pcpiepch": "imf_inflation_pct",
+        "ngdp_r": "imf_real_gdp"
+    })
+
+print("IMF cleaned:", imf_wide.shape)
+
+
+# clean world bank data
+wb = clean_columns(wb)
+
+wb_country_col = find_column(wb, ["country_name"])
+wb_indicator_code_col = find_column(wb, ["indicator_code"])
+wb_indicator_name_col = find_column(wb, ["indicator_name"])
+wb_year_cols = keep_year_columns(wb)
+
+if wb_country_col is None or wb_indicator_code_col is None:
+    print("Warning: World Bank dataset format not recognized. Skipping WB merge.")
+    wb_wide = pd.DataFrame(columns=["year"])
+else:
+    wb_us = wb[wb[wb_country_col].astype(str).str.strip().str.lower().eq("united states")].copy()
+
+    id_vars = [wb_country_col, wb_indicator_name_col, wb_indicator_code_col]
+    id_vars = [c for c in id_vars if c is not None]
+
+    wb_long = wb_us.melt(
+        id_vars=id_vars,
+        value_vars=wb_year_cols,
+        var_name="year",
+        value_name="wb_value"
+    )
+
+    wb_long["year"] = pd.to_numeric(wb_long["year"], errors="coerce")
+    wb_long["wb_value"] = pd.to_numeric(wb_long["wb_value"], errors="coerce")
+
+    wb_wide = wb_long.pivot_table(
+        index="year",
+        columns=wb_indicator_code_col,
+        values="wb_value",
+        aggfunc="mean"
+    ).reset_index()
+
+    # rename for manufacturing exports share
+    wb_wide = wb_wide.rename(columns={
+        "tx_val_manf_zs_un": "wb_mfg_exports_share"
+    })
+
+
+
+# clean OECD data
+
+
+oecd = clean_columns(oecd)
+
+ref_area_col = find_column(oecd, ["ref_area"])
+activity_col = find_column(oecd, ["activity"])
+measure_col = find_column(oecd, ["measure"])
+time_col = find_column(oecd, ["time_period"])
+value_col = find_column(oecd, ["obs_value"])
+
+if None in [ref_area_col, activity_col, measure_col, time_col, value_col]:
+    print("Warning: OECD dataset format not recognized. Skipping OECD merge.")
+    oecd_wide = pd.DataFrame(columns=["year", "naics"])
+else:
+    oecd = oecd[oecd[ref_area_col].astype(str).str.upper().eq("USA")].copy()
+    oecd[time_col] = pd.to_numeric(oecd[time_col], errors="coerce")
+    oecd[value_col] = pd.to_numeric(oecd[value_col], errors="coerce")
+    oecd[activity_col] = oecd[activity_col].astype(str).str.strip()
+
+    # Keep manufacturing-like activity codes
+    oecd = oecd[oecd[activity_col].str.startswith("C", na=False)].copy()
+    oecd_wide = oecd.pivot_table(
+        index=[time_col, activity_col],
+        columns=measure_col,
+        values=value_col,
+        aggfunc="mean"
+    ).reset_index()
+
+    oecd_wide = oecd_wide.rename(columns={
+        time_col: "year",
+        activity_col: "activity"
+    })
+
+    def oecd_to_naics_proxy(activity):
+        activity = str(activity)
+        # Examples:
+        # C10T12 -> 310
+        # C16 -> 316
+        # C31T33 -> 331
+        nums = re.findall(r"\d+", activity)
+        if not nums:
+            return np.nan
+        first = nums[0]
+        first = first[:2]  # first 2 digits only
+        return "3" + first
+
+    oecd_wide["naics"] = oecd_wide["activity"].apply(oecd_to_naics_proxy)
+    oecd_wide["naics"] = make_naics_str(oecd_wide["naics"])
+
+    # Aggregate OECD features to naics-year
+    oecd_wide = oecd_wide.groupby(["naics", "year"], as_index=False).mean(numeric_only=True)
+
+print("OECD cleaned:", oecd_wide.shape)
+
+# merge
+print("Merging datasets...")
+
+master_df = nber.copy()
+
+# Merge robotics on naics + year
+if not robotics_clean.empty:
+    master_df = master_df.merge(
+        robotics_clean,
+        on=["naics", "year"],
+        how="left",
+        suffixes=("", "_robot")
+    )
+
+# Merge IMF on year only
+if not imf_wide.empty:
+    master_df = master_df.merge(
+        imf_wide,
+        on="year",
+        how="left"
+    )
+
+# Merge World Bank on year only
+if not wb_wide.empty:
+    master_df = master_df.merge(
+        wb_wide,
+        on="year",
+        how="left"
+    )
+
+# Merge OECD on naics + year
+if not oecd_wide.empty:
+    master_df = master_df.merge(
+        oecd_wide,
+        on=["naics", "year"],
+        how="left",
+        suffixes=("", "_oecd")
+    )
+
+print("Merged dataset shape:", master_df.shape)
+
+
+
+print("Running final cleanup...")
+
+# Drop duplicate rows
+master_df = master_df.drop_duplicates()
+
+# Remove infinite values
+master_df = master_df.replace([np.inf, -np.inf], np.nan)
+
+# Optional: keep only rows with required targets
+required_targets = ["labor_productivity", "revenue_per_worker"]
+existing_targets = [c for c in required_targets if c in master_df.columns]
+if existing_targets:
+    master_df = master_df.dropna(subset=existing_targets, how="all")
+
+# Optional: sort
+master_df = master_df.sort_values(["naics", "year"]).reset_index(drop=True)
+
+print("Final dataset shape:", master_df.shape)
+print(master_df.head())
+
+
+# save csv
+master_df.to_csv(OUTPUT_FILE, index=False)
+print(f"Saved cleaned master dataset to: {OUTPUT_FILE}")
+
+
+# identify missing values
+missing_report = (
+    master_df.isna().mean().sort_values(ascending=False).reset_index()
+)
+missing_report.columns = ["column", "missing_pct"]
+
+print("\nTop missing columns:")
+print(missing_report.head(20))
+
+# Preview numeric columns
+numeric_cols = master_df.select_dtypes(include=[np.number]).columns.tolist()
+print("\nNumeric columns available for modeling:")
+print(numeric_cols[:50])
+
+
+# Detect outliers using Z-Scores
+cols_for_outliers = feature_cols + ["labor_productivity", "revenue_per_worker"]
+outlier_df = model_df[cols_for_outliers].select_dtypes(include=[np.number]).copy()
+
+# Drop columns with no variation
+outlier_df = outlier_df.loc[:, outlier_df.nunique(dropna=True) > 1]
+
+# Compute z-scores
+z_scores = np.abs(zscore(outlier_df, nan_policy="omit"))
+
+# Convert back to DataFrame
+z_scores_df = pd.DataFrame(z_scores, columns=outlier_df.columns, index=outlier_df.index)
+
+# Flag rows where any variable exceeds threshold
+threshold = 3
+outlier_flags = (z_scores_df > threshold)
+
+# Rows containing at least one outlier
+rows_with_outliers = outlier_flags.any(axis=1)
+
+# Outlier rows from original data
+zscore_outliers = model_df.loc[rows_with_outliers].copy()
+
+print("Number of rows with at least one z-score outlier:", rows_with_outliers.sum())
+print("\nCount of outliers by variable:")
+print((z_scores_df > threshold).sum().sort_values(ascending=False))
+
+print("\nPreview of rows with z-score outliers:")
+print(zscore_outliers.head())
+
+# Detect outliers using IQR
+outlier_cols = feature_cols + ["labor_productivity", "revenue_per_worker"]
+iqr_df = model_df[outlier_cols].select_dtypes(include=[np.number]).copy()
+
+# Drop columns with no variation
+iqr_df = iqr_df.loc[:, iqr_df.nunique(dropna=True) > 1]
+iqr_summary = []
+iqr_flags_df = pd.DataFrame(index=iqr_df.index)
+
+for col in iqr_df.columns:
+    Q1 = iqr_df[col].quantile(0.25)
+    Q3 = iqr_df[col].quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    col_outliers = (iqr_df[col] < lower_bound) | (iqr_df[col] > upper_bound)
+    iqr_flags_df[col] = col_outliers
+
+    iqr_summary.append({
+        "variable": col,
+        "Q1": Q1,
+        "Q3": Q3,
+        "IQR": IQR,
+        "lower_bound": lower_bound,
+        "upper_bound": upper_bound,
+        "outlier_count": col_outliers.sum()
+    })
+
+# Convert summary to DataFrame
+iqr_summary_df = pd.DataFrame(iqr_summary).sort_values("outlier_count", ascending=False)
+
+# Rows with at least one IQR outlier
+iqr_row_flags = iqr_flags_df.any(axis=1)
+
+# Extract rows from original project dataframe
+iqr_outliers = model_df.loc[iqr_row_flags].copy()
+
+print("=================================================")
+print("IQR OUTLIER SUMMARY")
+print("=================================================")
+print("Number of rows with at least one IQR outlier:", iqr_row_flags.sum())
+
+print("\nOutlier counts by variable:")
+print(iqr_summary_df[["variable", "outlier_count"]])
+
+print("\nPreview of rows with IQR outliers:")
+print(iqr_outliers.head())
+
+# Save results to CSV
+iqr_summary_df.to_csv("iqr_outlier_summary.csv", index=False)
+iqr_outliers.to_csv("iqr_outliers.csv", index=False)
+iqr_flags_df.to_csv("iqr_outlier_flags_by_row.csv", index=False)
+
 X = pd.DataFrame(index=model_df.index)
 for col in feature_cols:
     X[col] = pd.to_numeric(model_df[col], errors="coerce")
@@ -666,6 +1114,30 @@ wb_future = recursive_non_linear_forecast(
     random_state=42
 )
 
+# Correlation heatmap
+cols_for_heatmap = feature_cols + ["labor_productivity", "revenue_per_worker"]
+
+heatmap_df = model_df[cols_for_heatmap].copy()
+
+# Keep only numeric columns
+numeric_df = heatmap_df.select_dtypes(include=[np.number]).copy()
+
+# Drop columns with no variation
+numeric_df = numeric_df.loc[:, numeric_df.nunique(dropna=True) > 1]
+
+corr_matrix = numeric_df.corr()
+
+plt.figure(figsize=(16, 12))
+img = plt.imshow(corr_matrix, aspect="auto")
+plt.colorbar(img, label="Correlation")
+
+plt.xticks(range(len(corr_matrix.columns)), corr_matrix.columns, rotation=90)
+plt.yticks(range(len(corr_matrix.index)), corr_matrix.index)
+
+plt.title("Correlation Heatmap: Model Features and Targets (Figure 1)")
+plt.tight_layout()
+plt.show()
+
 # sector forecasting
 sector_panel_input = model_df[["naics", "year"] + sector_structural_cols].copy()
 
@@ -781,7 +1253,7 @@ plt.bar(top15_future_prod["short_label"], top15_future_prod["avg_future_producti
 plt.xticks(rotation=60, ha="right")
 plt.xlabel("Top 15 Manufacturing Sectors")
 plt.ylabel("Projected Productivity")
-plt.title("Projected Productivity (2024-2027 Average) (XGBoost)")
+plt.title("Projected Productivity (2024-2027 Average) (XGBoost) (Figure 2)")
 plt.tight_layout()
 plt.savefig("chart_3_projected_future_productivity.png", dpi=300, bbox_inches="tight")
 plt.show()
@@ -792,7 +1264,7 @@ plt.bar(top15_future_rev["short_label"], top15_future_rev["avg_future_revenue"])
 plt.xticks(rotation=60, ha="right")
 plt.xlabel("Top 15 Manufacturing Sectors")
 plt.ylabel("Projected Revenue per Worker ($USD)")
-plt.title("Projected Revenue per Worker (2024-2027 Average) (XGBoost)")
+plt.title("Projected Revenue per Worker (2024-2027 Average) (XGBoost) (Figure 3)")
 plt.tight_layout()
 plt.savefig("chart_4_projected_future_revenue.png", dpi=300, bbox_inches="tight")
 plt.show()
