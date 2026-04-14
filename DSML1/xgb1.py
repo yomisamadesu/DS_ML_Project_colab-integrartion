@@ -742,6 +742,12 @@ top15_future_prod = future_summary.head(15).copy()
 top15_future_rev = future_summary.sort_values("avg_future_revenue", ascending=False).head(15).copy()
 
 # File Exports
+df.to_csv("merged_dataset_full.csv", index=False)
+model_df.to_csv("final_cleaned_dataset.csv", index=False)
+print("Both datasets exported:")
+print("- merged_dataset_full.csv (raw merged)")
+print("- final_cleaned_dataset.csv (cleaned for modeling)")
+
 naics_matches.to_csv("nber_naics_readable_mapping.csv", index=False)
 results.to_csv("historical_scenario_predictions_by_sector_year.csv", index=False)
 sector_summary.to_csv("historical_sector_summary.csv", index=False)
