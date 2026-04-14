@@ -40,3 +40,5 @@ material costs, and investment. We tested for a +10%, +15% & +25% increase in ro
 training hours, these results  depicted an uneven positive effect across manufacturing sectors. 
 It would appear that the more an organization contributes to capital labor ratio, capital stock, equipment investment, 
 and material costs, the more likely they are to benefit from an increase in robot adoption and automation.
+
+Moving forward into Milestone 3 we plan to also implement predictions for the jobs displaced by automation at each of the adoption intervals.
