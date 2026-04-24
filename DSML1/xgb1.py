@@ -1,4 +1,5 @@
 # required imports
+import time
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -6,6 +7,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -780,6 +782,52 @@ metrics = pd.DataFrame({
     ]
 })
 metrics.to_csv("xgboost_model_metrics.csv", index=False)
+
+# Prepare for jobs displaced
+y_jobs = pd.to_numeric(model_df["jobs_displaced"], errors="coerce")
+
+valid_mask = valid_mask & y_jobs.notna()
+
+X = X.loc[valid_mask].copy()
+y_prod = y_prod.loc[valid_mask].copy()
+y_rev = y_rev.loc[valid_mask].copy()
+y_jobs = y_jobs.loc[valid_mask].copy()
+model_df = model_df.loc[valid_mask].copy()
+
+# Train/test
+y_jobs_train = y_jobs.iloc[train_idx]
+y_jobs_test = y_jobs.iloc[test_idx]
+
+# XGB
+jobs_model = XGBRegressor(**xgb_params)
+t0 = time.time()
+jobs_model.fit(X_train, y_jobs_train)
+xgb_jobs_time = time.time() - t0
+
+jobs_preds_test = jobs_model.predict(X_test)
+
+jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_preds_test))
+jobs_mae = mean_absolute_error(y_jobs_test, jobs_preds_test)
+jobs_r2 = r2_score(y_jobs_test, jobs_preds_test)
+
+print("\nJOBS DISPLACEMENT MODEL (XGBoost)")
+print(f"RMSE: {jobs_rmse:.4f}")
+print(f"MAE: {jobs_mae:.4f}")
+print(f"R2: {jobs_r2:.4f}")
+
+# LightGBM
+jobs_model_lgbm = LGBMRegressor(**xgb_params)
+t0 = time.time()
+jobs_model_lgbm.fit(X_train, y_jobs_train)
+lgbm_jobs_time = time.time() - t0
+jobs_pred_lgbm = jobs_model_lgbm.predict(X_test)
+lgbm_jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_pred_lgbm))
+lgbm_jobs_mae = mean_absolute_error(y_jobs_test, jobs_pred_lgbm)
+lgbm_jobs_r2 = r2_score(y_jobs_test, jobs_pred_lgbm)
+print("\nJOBS DISPLACEMENT MODEL (LightGBM)")
+print(f"RMSE: {lgbm_jobs_rmse:.4f}")
+print(f"MAE: {lgbm_jobs_mae:.4f}")
+print(f"R2: {lgbm_jobs_r2:.4f}")
 
 # Chart Projected future productivity
 plt.figure(figsize=(16, 7))
