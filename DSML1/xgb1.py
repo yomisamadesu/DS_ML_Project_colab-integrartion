@@ -1,14 +1,15 @@
 # required imports
-import time
 import warnings
 warnings.filterwarnings("ignore")
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import StrMethodFormatter
+import time
 
-from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.ensemble import RandomForestRegressor
@@ -452,12 +453,19 @@ for col in feature_cols:
 
 y_prod = pd.to_numeric(model_df["labor_productivity"], errors="coerce")
 y_rev = pd.to_numeric(model_df["revenue_per_worker"], errors="coerce")
+y_jobs = pd.to_numeric(model_df["jobs_displaced"], errors="coerce")
 
-valid_mask = X.notna().all(axis=1) & y_prod.notna() & y_rev.notna()
+# Jobs displaced is a prediction target, so remove it from the jobs model features to avoid target leakage.
+jobs_feature_cols = [col for col in feature_cols if col != "jobs_displaced"]
+
+valid_mask = X.notna().all(axis=1) & y_prod.notna() & y_rev.notna() & y_jobs.notna()
 X = X.loc[valid_mask].copy()
 y_prod = y_prod.loc[valid_mask].copy()
 y_rev = y_rev.loc[valid_mask].copy()
+y_jobs = y_jobs.loc[valid_mask].copy()
 model_df = model_df.loc[valid_mask].copy()
+
+X_jobs = X[jobs_feature_cols].copy()
 
 print("Observed modeling shape:", X.shape)
 print("Observed years:", sorted(model_df["year"].unique()))
@@ -475,7 +483,13 @@ y_prod_test = y_prod.iloc[test_idx]
 y_rev_train = y_rev.iloc[train_idx]
 y_rev_test = y_rev.iloc[test_idx]
 
-# Train models
+y_jobs_train = y_jobs.iloc[train_idx]
+y_jobs_test = y_jobs.iloc[test_idx]
+
+X_jobs_train = X_jobs.iloc[train_idx]
+X_jobs_test = X_jobs.iloc[test_idx]
+
+# Train XGBoost models
 xgb_params = {
     "n_estimators": 220,
     "max_depth": 4,
@@ -489,12 +503,23 @@ xgb_params = {
 
 prod_model = XGBRegressor(**xgb_params)
 rev_model = XGBRegressor(**xgb_params)
+jobs_model = XGBRegressor(**xgb_params)
 
+t0 = time.time()
 prod_model.fit(X_train, y_prod_train)
+xgb_prod_time = time.time() - t0
+
+t0 = time.time()
 rev_model.fit(X_train, y_rev_train)
+xgb_rev_time = time.time() - t0
+
+t0 = time.time()
+jobs_model.fit(X_jobs_train, y_jobs_train)
+xgb_jobs_time = time.time() - t0
 
 prod_preds_test = prod_model.predict(X_test)
 rev_preds_test = rev_model.predict(X_test)
+jobs_preds_test = jobs_model.predict(X_jobs_test)
 
 prod_rmse = np.sqrt(mean_squared_error(y_prod_test, prod_preds_test))
 prod_mae = mean_absolute_error(y_prod_test, prod_preds_test)
@@ -503,6 +528,10 @@ prod_r2 = r2_score(y_prod_test, prod_preds_test)
 rev_rmse = np.sqrt(mean_squared_error(y_rev_test, rev_preds_test))
 rev_mae = mean_absolute_error(y_rev_test, rev_preds_test)
 rev_r2 = r2_score(y_rev_test, rev_preds_test)
+
+jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_preds_test))
+jobs_mae = mean_absolute_error(y_jobs_test, jobs_preds_test)
+jobs_r2 = r2_score(y_jobs_test, jobs_preds_test)
 
 print("\nPRODUCTIVITY MODEL")
 print(f"RMSE: {prod_rmse:.4f}")
@@ -514,18 +543,162 @@ print(f"RMSE: {rev_rmse:.4f}")
 print(f"MAE:  {rev_mae:.4f}")
 print(f"R2:   {rev_r2:.4f}")
 
+print("\nJOBS DISPLACEMENT MODEL")
+print(f"RMSE: {jobs_rmse:.4f}")
+print(f"MAE:  {jobs_mae:.4f}")
+print(f"R2:   {jobs_r2:.4f}")
+
+# Train LightGBM models
+lgbm_params = {
+    "n_estimators": 220,
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "random_state": 42,
+    "verbose": -1
+}
+
+prod_model_lgbm = LGBMRegressor(**lgbm_params)
+rev_model_lgbm = LGBMRegressor(**lgbm_params)
+jobs_model_lgbm = LGBMRegressor(**lgbm_params)
+
+t0 = time.time()
+prod_model_lgbm.fit(X_train, y_prod_train)
+lgbm_prod_time = time.time() - t0
+
+t0 = time.time()
+rev_model_lgbm.fit(X_train, y_rev_train)
+lgbm_rev_time = time.time() - t0
+
+t0 = time.time()
+jobs_model_lgbm.fit(X_jobs_train, y_jobs_train)
+lgbm_jobs_time = time.time() - t0
+
+prod_preds_lgbm = prod_model_lgbm.predict(X_test)
+rev_preds_lgbm = rev_model_lgbm.predict(X_test)
+jobs_preds_lgbm = jobs_model_lgbm.predict(X_jobs_test)
+
+lgbm_prod_rmse = np.sqrt(mean_squared_error(y_prod_test, prod_preds_lgbm))
+lgbm_prod_mae = mean_absolute_error(y_prod_test, prod_preds_lgbm)
+lgbm_prod_r2 = r2_score(y_prod_test, prod_preds_lgbm)
+
+lgbm_rev_rmse = np.sqrt(mean_squared_error(y_rev_test, rev_preds_lgbm))
+lgbm_rev_mae = mean_absolute_error(y_rev_test, rev_preds_lgbm)
+lgbm_rev_r2 = r2_score(y_rev_test, rev_preds_lgbm)
+
+lgbm_jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_preds_lgbm))
+lgbm_jobs_mae = mean_absolute_error(y_jobs_test, jobs_preds_lgbm)
+lgbm_jobs_r2 = r2_score(y_jobs_test, jobs_preds_lgbm)
+
+print("\nLIGHTGBM PRODUCTIVITY MODEL")
+print(f"RMSE: {lgbm_prod_rmse:.4f}")
+print(f"MAE:  {lgbm_prod_mae:.4f}")
+print(f"R2:   {lgbm_prod_r2:.4f}")
+
+print("\nLIGHTGBM REVENUE MODEL")
+print(f"RMSE: {lgbm_rev_rmse:.4f}")
+print(f"MAE:  {lgbm_rev_mae:.4f}")
+print(f"R2:   {lgbm_rev_r2:.4f}")
+
+print("\nLIGHTGBM JOBS DISPLACEMENT MODEL")
+print(f"RMSE: {lgbm_jobs_rmse:.4f}")
+print(f"MAE:  {lgbm_jobs_mae:.4f}")
+print(f"R2:   {lgbm_jobs_r2:.4f}")
+
+# Model comparison table
+comparison_df = pd.DataFrame({
+    "model": ["XGBoost", "LightGBM", "XGBoost", "LightGBM", "XGBoost", "LightGBM"],
+    "target": ["productivity", "productivity", "revenue_per_worker", "revenue_per_worker", "jobs_displaced", "jobs_displaced"],
+    "rmse": [prod_rmse, lgbm_prod_rmse, rev_rmse, lgbm_rev_rmse, jobs_rmse, lgbm_jobs_rmse],
+    "mae": [prod_mae, lgbm_prod_mae, rev_mae, lgbm_rev_mae, jobs_mae, lgbm_jobs_mae],
+    "r2": [prod_r2, lgbm_prod_r2, rev_r2, lgbm_rev_r2, jobs_r2, lgbm_jobs_r2],
+    "train_sec": [round(xgb_prod_time, 3), round(lgbm_prod_time, 3),
+                  round(xgb_rev_time, 3), round(lgbm_rev_time, 3),
+                  round(xgb_jobs_time, 3), round(lgbm_jobs_time, 3)]
+})
+
+print("\n" + "=" * 60)
+print("MODEL COMPARISON: XGBoost vs LightGBM")
+print("=" * 60)
+print(comparison_df.to_string(index=False))
+print("=" * 60)
+
+# Comparison chart
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+fig.suptitle("XGBoost vs LightGBM — Test Set Metrics (Figure 1)", fontsize=14, fontweight="bold")
+
+metrics_to_plot = ["rmse", "mae", "r2"]
+metric_labels = ["RMSE (lower = better)", "MAE (lower = better)", "R² (higher = better)"]
+colors = {"XGBoost": "#2196F3", "LightGBM": "#4CAF50"}
+targets = ["Productivity", "Revenue/Worker", "Jobs Displaced"]
+x = np.arange(len(targets))
+width = 0.35
+
+for ax, metric, label in zip(axes, metrics_to_plot, metric_labels):
+    xgb_vals = comparison_df[comparison_df["model"] == "XGBoost"][metric].values
+    lgbm_vals = comparison_df[comparison_df["model"] == "LightGBM"][metric].values
+
+    ax.bar(x - width / 2, xgb_vals, width, label="XGBoost", color=colors["XGBoost"], alpha=0.85)
+    ax.bar(x + width / 2, lgbm_vals, width, label="LightGBM", color=colors["LightGBM"], alpha=0.85)
+
+    ax.set_title(label, fontsize=10)
+    ax.set_xticks(x)
+    ax.set_xticklabels(targets, fontsize=9)
+    ax.legend(fontsize=8)
+    ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+plt.tight_layout()
+plt.savefig("chart_model_comparison.png", dpi=300, bbox_inches="tight")
+plt.show()
+
+# Feature importance comparison chart
+prod_imp_xgb = top_feature_importance(prod_model, feature_cols, top_n=10)
+prod_imp_lgbm = top_feature_importance(prod_model_lgbm, feature_cols, top_n=10)
+
+fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+fig.suptitle("Top 10 Feature Importances — Productivity Model (Figure 2)", fontsize=13, fontweight="bold")
+
+for ax, imp_df, title, color in zip(
+    axes,
+    [prod_imp_xgb, prod_imp_lgbm],
+    ["XGBoost", "LightGBM"],
+    [colors["XGBoost"], colors["LightGBM"]]
+):
+    ax.barh(imp_df["feature"][::-1], imp_df["importance"][::-1], color=color, alpha=0.85)
+    ax.set_title(title, fontsize=11)
+    ax.set_xlabel("Importance")
+    ax.grid(axis="x", linestyle="--", alpha=0.4)
+
+plt.tight_layout()
+plt.savefig("chart_feature_importance_comparison.png", dpi=300, bbox_inches="tight")
+plt.show()
+
 # Automation scenario
+# These values control the historical scenario comparison.
+# Increase/decrease these multipliers to test stronger or weaker automation assumptions.
+historical_robots_multiplier = 2.00
+historical_training_hours_multiplier = 1.50
+
 X_all = X.copy()
 scenario_all = X_all.copy()
 
-scenario_all["robots_adopted"] *= 1.10
-scenario_all["training_hours"] *= 1.05
+scenario_all["robots_adopted"] *= historical_robots_multiplier
+scenario_all["training_hours"] *= historical_training_hours_multiplier
 
 baseline_prod = prod_model.predict(X_all)
 scenario_prod = prod_model.predict(scenario_all)
 
 baseline_rev = rev_model.predict(X_all)
 scenario_rev = rev_model.predict(scenario_all)
+
+# Jobs displaced scenario uses a feature matrix that excludes the target column
+X_jobs_all = X_all[jobs_feature_cols].copy()
+scenario_jobs_all = scenario_all[jobs_feature_cols].copy()
+baseline_jobs = jobs_model.predict(X_jobs_all)
+scenario_jobs = jobs_model.predict(scenario_jobs_all)
 
 results = model_df[[
     "naics", "naics_title", "short_title", "short_label",
@@ -536,6 +709,8 @@ results["baseline_productivity"] = baseline_prod
 results["scenario_productivity"] = scenario_prod
 results["baseline_revenue_per_worker"] = baseline_rev
 results["scenario_revenue_per_worker"] = scenario_rev
+results["baseline_jobs_displaced"] = baseline_jobs
+results["scenario_jobs_displaced"] = scenario_jobs
 
 sector_summary = (
     results.groupby(
@@ -546,7 +721,9 @@ sector_summary = (
         avg_baseline_productivity=("baseline_productivity", "mean"),
         avg_scenario_productivity=("scenario_productivity", "mean"),
         avg_baseline_revenue=("baseline_revenue_per_worker", "mean"),
-        avg_scenario_revenue=("scenario_revenue_per_worker", "mean")
+        avg_scenario_revenue=("scenario_revenue_per_worker", "mean"),
+        avg_baseline_jobs=("baseline_jobs_displaced", "mean"),
+        avg_scenario_jobs=("scenario_jobs_displaced", "mean")
     )
 )
 
@@ -568,9 +745,19 @@ sector_summary["revenue_pct_change"] = np.where(
     np.nan
 )
 
+sector_summary["jobs_change"] = (
+    sector_summary["avg_scenario_jobs"] - sector_summary["avg_baseline_jobs"]
+)
+sector_summary["jobs_pct_change"] = np.where(
+    sector_summary["avg_baseline_jobs"] != 0,
+    (sector_summary["jobs_change"] / sector_summary["avg_baseline_jobs"]) * 100,
+    np.nan
+)
+
 sector_summary = sector_summary.replace([np.inf, -np.inf], np.nan)
 sector_summary = sector_summary.dropna(subset=[
-    "prod_pct_change", "revenue_pct_change", "prod_change", "revenue_change"
+    "prod_pct_change", "revenue_pct_change", "jobs_pct_change",
+    "prod_change", "revenue_change", "jobs_change"
 ]).copy()
 
 top15_hist = (
@@ -582,6 +769,7 @@ top15_hist = (
 # Feature importances
 prod_importance = top_feature_importance(prod_model, feature_cols, top_n=15)
 rev_importance = top_feature_importance(rev_model, feature_cols, top_n=15)
+jobs_importance = top_feature_importance(jobs_model, jobs_feature_cols, top_n=15)
 
 # Nonlinear forecasts to 2027
 years_hist_to_future = list(range(2015, 2028))
@@ -695,7 +883,6 @@ latest_labels = (
     .groupby("naics", as_index=False)
     .last()[["naics", "naics_title", "short_title", "short_label", "full_label", "match_level"]]
 )
-
 future_df = sector_structural_future.merge(latest_labels, on="naics", how="left")
 future_df = future_df.merge(robotics_future, on="year", how="left")
 future_df = future_df.merge(macro_future, on="year", how="left")
@@ -711,6 +898,19 @@ for col in feature_cols:
 future_df[feature_cols] = future_df.groupby("naics")[feature_cols].transform(lambda s: s.ffill().bfill())
 future_df[feature_cols] = future_df[feature_cols].ffill().bfill()
 
+# Apply future automation scenario to 2024-2027 predictions
+# This is separate from the historical scenario above.
+# Without this block, changing scenario_all will not change the future top 15 productivity/revenue charts.
+future_robots_multiplier = 2.00
+future_training_hours_multiplier = 4.00
+future_productivity_gain_multiplier = 1.50
+future_cost_savings_multiplier = 1.50
+
+future_df["robots_adopted"] *= future_robots_multiplier
+future_df["training_hours"] *= future_training_hours_multiplier
+future_df["robotics_productivity_gain"] *= future_productivity_gain_multiplier
+future_df["robotics_cost_savings"] *= future_cost_savings_multiplier
+
 # 2024 - 2027 Prediction
 future_X = pd.DataFrame(index=future_df.index)
 for col in feature_cols:
@@ -722,6 +922,17 @@ future_df = future_df.loc[future_valid_mask].copy()
 
 future_df["predicted_productivity"] = prod_model.predict(future_X)
 future_df["predicted_revenue_per_worker"] = rev_model.predict(future_X)
+future_df["predicted_jobs_displaced"] = jobs_model.predict(future_X[jobs_feature_cols])
+
+future_df["lgbm_predicted_productivity"] = prod_model_lgbm.predict(future_X)
+future_df["lgbm_predicted_revenue_per_worker"] = rev_model_lgbm.predict(future_X)
+future_df["lgbm_predicted_jobs_displaced"] = jobs_model_lgbm.predict(future_X[jobs_feature_cols])
+
+print("\nFuture automation scenario multipliers:")
+print(f"Robots adopted multiplier: {future_robots_multiplier}")
+print(f"Training hours multiplier: {future_training_hours_multiplier}")
+print(f"Robotics productivity gain multiplier: {future_productivity_gain_multiplier}")
+print(f"Robotics cost savings multiplier: {future_cost_savings_multiplier}")
 
 print("\nFuture panel shape:", future_df.shape)
 print("Future years:", sorted(future_df["year"].unique()))
@@ -734,7 +945,11 @@ future_summary = (
     )
     .agg(
         avg_future_productivity=("predicted_productivity", "mean"),
-        avg_future_revenue=("predicted_revenue_per_worker", "mean")
+        avg_future_revenue=("predicted_revenue_per_worker", "mean"),
+        avg_future_jobs_displaced=("predicted_jobs_displaced", "mean"),
+        lgbm_avg_future_productivity=("lgbm_predicted_productivity", "mean"),
+        lgbm_avg_future_revenue=("lgbm_predicted_revenue_per_worker", "mean"),
+        lgbm_avg_future_jobs_displaced=("lgbm_predicted_jobs_displaced", "mean")
     )
     .sort_values("avg_future_productivity", ascending=False)
     .reset_index(drop=True)
@@ -742,18 +957,19 @@ future_summary = (
 
 top15_future_prod = future_summary.head(15).copy()
 top15_future_rev = future_summary.sort_values("avg_future_revenue", ascending=False).head(15).copy()
+top15_future_jobs = future_summary.sort_values("avg_future_jobs_displaced", ascending=False).head(15).copy()
+
+top15_lgbm_future_prod = future_summary.sort_values("lgbm_avg_future_productivity", ascending=False).head(15).copy()
+top15_lgbm_future_rev = future_summary.sort_values("lgbm_avg_future_revenue", ascending=False).head(15).copy()
+top15_lgbm_future_jobs = future_summary.sort_values("lgbm_avg_future_jobs_displaced", ascending=False).head(15).copy()
 
 # File Exports
 df.to_csv("merged_dataset_full.csv", index=False)
-model_df.to_csv("final_cleaned_dataset.csv", index=False)
-print("Both datasets exported:")
-print("- merged_dataset_full.csv (raw merged)")
-print("- final_cleaned_dataset.csv (cleaned for modeling)")
-
+model_df.to_csv("final_cleaned_modeling_dataset.csv", index=False)
 naics_matches.to_csv("nber_naics_readable_mapping.csv", index=False)
 results.to_csv("historical_scenario_predictions_by_sector_year.csv", index=False)
 sector_summary.to_csv("historical_sector_summary.csv", index=False)
-top15_hist.to_csv("top15_historical_automation_impact.csv", index=False)
+
 
 robotics_future.to_csv("future_robotics_forecast_nonlinear.csv", index=False)
 macro_future.to_csv("future_macro_forecast_nonlinear.csv", index=False)
@@ -764,111 +980,227 @@ future_df.to_csv("future_2024_2027_predictions_by_sector_year.csv", index=False)
 future_summary.to_csv("future_2024_2027_sector_summary.csv", index=False)
 top15_future_prod.to_csv("top15_future_productivity.csv", index=False)
 top15_future_rev.to_csv("top15_future_revenue.csv", index=False)
+top15_future_jobs.to_csv("top15_future_jobs_displaced.csv", index=False)
+top15_lgbm_future_prod.to_csv("top15_lgbm_future_productivity.csv", index=False)
+top15_lgbm_future_rev.to_csv("top15_lgbm_future_revenue.csv", index=False)
+top15_lgbm_future_jobs.to_csv("top15_lgbm_future_jobs_displaced.csv", index=False)
 
 prod_importance.to_csv("productivity_feature_importance.csv", index=False)
 rev_importance.to_csv("revenue_feature_importance.csv", index=False)
+jobs_importance.to_csv("jobs_displaced_feature_importance.csv", index=False)
+
+comparison_df.to_csv("model_comparison_xgb_vs_lgbm.csv", index=False)
+top_feature_importance(prod_model_lgbm, feature_cols, top_n=15).to_csv("lgbm_productivity_feature_importance.csv", index=False)
+top_feature_importance(rev_model_lgbm, feature_cols, top_n=15).to_csv("lgbm_revenue_feature_importance.csv", index=False)
+top_feature_importance(jobs_model_lgbm, jobs_feature_cols, top_n=15).to_csv("lgbm_jobs_displaced_feature_importance.csv", index=False)
 
 metrics = pd.DataFrame({
-    "model": ["productivity", "revenue_per_worker"],
-    "rmse": [prod_rmse, rev_rmse],
-    "mae": [prod_mae, rev_mae],
-    "r2": [prod_r2, rev_r2],
-    "rows_used": [len(model_df), len(model_df)],
-    "observed_years_used": [f"{model_df['year'].min()}-{model_df['year'].max()}"] * 2,
-    "future_projection_years": ["2024-2027", "2024-2027"],
+    "model": ["productivity", "revenue_per_worker", "jobs_displaced",
+              "lgbm_productivity", "lgbm_revenue_per_worker", "lgbm_jobs_displaced"],
+    "rmse": [prod_rmse, rev_rmse, jobs_rmse, lgbm_prod_rmse, lgbm_rev_rmse, lgbm_jobs_rmse],
+    "mae": [prod_mae, rev_mae, jobs_mae, lgbm_prod_mae, lgbm_rev_mae, lgbm_jobs_mae],
+    "r2": [prod_r2, rev_r2, jobs_r2, lgbm_prod_r2, lgbm_rev_r2, lgbm_jobs_r2],
+    "rows_used": [len(model_df)] * 6,
+    "observed_years_used": [f"{model_df['year'].min()}-{model_df['year'].max()}"] * 6,
+    "future_projection_years": ["2024-2027"] * 6,
     "forecast_style": [
+        "nonlinear aggregate + sector-aware structural",
+        "nonlinear aggregate + sector-aware structural",
+        "nonlinear aggregate + sector-aware structural",
+        "nonlinear aggregate + sector-aware structural",
         "nonlinear aggregate + sector-aware structural",
         "nonlinear aggregate + sector-aware structural"
     ]
 })
 metrics.to_csv("xgboost_model_metrics.csv", index=False)
 
-# Prepare for jobs displaced
-y_jobs = pd.to_numeric(model_df["jobs_displaced"], errors="coerce")
+# Upgraded chart helper functions
+def save_barh(df, label_col, value_col, title, xlabel, filename, top_n=15):
+    plot_df = df.dropna(subset=[label_col, value_col]).copy()
+    plot_df = plot_df[plot_df[value_col] != 0]
+    plot_df = plot_df.sort_values(value_col, ascending=False).head(top_n)
 
-valid_mask = valid_mask & y_jobs.notna()
+    if plot_df.empty:
+        print(f"No usable data for {title}")
+        return
 
-X = X.loc[valid_mask].copy()
-y_prod = y_prod.loc[valid_mask].copy()
-y_rev = y_rev.loc[valid_mask].copy()
-y_jobs = y_jobs.loc[valid_mask].copy()
-model_df = model_df.loc[valid_mask].copy()
+    plt.figure(figsize=(14, 8))
+    plt.barh(plot_df[label_col][::-1], plot_df[value_col][::-1])
+    plt.xlabel(xlabel)
+    plt.title(title, fontsize=14, fontweight="bold")
+    plt.grid(axis="x", linestyle="--", alpha=0.35)
+    plt.gca().xaxis.set_major_formatter(StrMethodFormatter("{x:,.2f}"))
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.show()
 
-# Train/test
-y_jobs_train = y_jobs.iloc[train_idx]
-y_jobs_test = y_jobs.iloc[test_idx]
 
-# XGB
-jobs_model = XGBRegressor(**xgb_params)
-t0 = time.time()
-jobs_model.fit(X_train, y_jobs_train)
-xgb_jobs_time = time.time() - t0
+def save_grouped_metric_chart(comparison_df, metric, title, ylabel, filename):
+    pivot_df = comparison_df.pivot(index="target", columns="model", values=metric).reset_index()
 
-jobs_preds_test = jobs_model.predict(X_test)
+    target_order = ["productivity", "revenue_per_worker", "jobs_displaced"]
+    target_labels = ["Productivity", "Revenue/Worker", "Jobs Displaced"]
 
-jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_preds_test))
-jobs_mae = mean_absolute_error(y_jobs_test, jobs_preds_test)
-jobs_r2 = r2_score(y_jobs_test, jobs_preds_test)
+    pivot_df["target"] = pd.Categorical(
+        pivot_df["target"],
+        categories=target_order,
+        ordered=True
+    )
 
-print("\nJOBS DISPLACEMENT MODEL (XGBoost)")
-print(f"RMSE: {jobs_rmse:.4f}")
-print(f"MAE: {jobs_mae:.4f}")
-print(f"R2: {jobs_r2:.4f}")
+    pivot_df = pivot_df.sort_values("target")
 
-# LightGBM
-jobs_model_lgbm = LGBMRegressor(**xgb_params)
-t0 = time.time()
-jobs_model_lgbm.fit(X_train, y_jobs_train)
-lgbm_jobs_time = time.time() - t0
-jobs_pred_lgbm = jobs_model_lgbm.predict(X_test)
-lgbm_jobs_rmse = np.sqrt(mean_squared_error(y_jobs_test, jobs_pred_lgbm))
-lgbm_jobs_mae = mean_absolute_error(y_jobs_test, jobs_pred_lgbm)
-lgbm_jobs_r2 = r2_score(y_jobs_test, jobs_pred_lgbm)
-print("\nJOBS DISPLACEMENT MODEL (LightGBM)")
-print(f"RMSE: {lgbm_jobs_rmse:.4f}")
-print(f"MAE: {lgbm_jobs_mae:.4f}")
-print(f"R2: {lgbm_jobs_r2:.4f}")
+    x = np.arange(len(pivot_df))
+    width = 0.35
 
-# Chart Projected future productivity
-plt.figure(figsize=(16, 7))
-plt.bar(top15_future_prod["short_label"], top15_future_prod["avg_future_productivity"])
-plt.xticks(rotation=60, ha="right")
-plt.xlabel("Top 15 Manufacturing Sectors")
-plt.ylabel("Projected Productivity")
-plt.title("Projected Productivity (2024-2027 Average) (XGBoost)")
-plt.tight_layout()
-plt.savefig("chart_3_projected_future_productivity.png", dpi=300, bbox_inches="tight")
-plt.show()
+    plt.figure(figsize=(11, 6))
+    plt.bar(x - width / 2, pivot_df["XGBoost"], width, label="XGBoost")
+    plt.bar(x + width / 2, pivot_df["LightGBM"], width, label="LightGBM")
 
-# Chart Projected future revenue
-plt.figure(figsize=(16, 7))
-plt.bar(top15_future_rev["short_label"], top15_future_rev["avg_future_revenue"])
-plt.xticks(rotation=60, ha="right")
-plt.xlabel("Top 15 Manufacturing Sectors")
-plt.ylabel("Projected Revenue per Worker ($USD)")
-plt.title("Projected Revenue per Worker (2024-2027 Average) (XGBoost)")
-plt.tight_layout()
-plt.savefig("chart_4_projected_future_revenue.png", dpi=300, bbox_inches="tight")
-plt.show()
+    plt.xticks(x, target_labels, rotation=0)
+    plt.ylabel(ylabel)
+    plt.title(title, fontsize=14, fontweight="bold")
+    plt.grid(axis="y", linestyle="--", alpha=0.35)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.show()
+
+# historical scenario charts
+# This function keeps zero values instead of filtering them out.
+# That prevents blank historical charts when the tree models return identical baseline/scenario predictions.
+def save_historical_scenario_barh(df, label_col, value_col, title, xlabel, filename, top_n=15):
+    plot_df = df.dropna(subset=[label_col, value_col]).copy()
+
+    if plot_df.empty:
+        print(f"No usable data for {title}")
+        return
+
+    plot_df["abs_impact"] = plot_df[value_col].abs()
+    plot_df = plot_df.sort_values("abs_impact", ascending=False).head(top_n)
+
+    plt.figure(figsize=(14, 8))
+    plt.barh(plot_df[label_col][::-1], plot_df[value_col][::-1])
+    plt.xlabel(xlabel)
+    plt.title(title, fontsize=14, fontweight="bold")
+    plt.grid(axis="x", linestyle="--", alpha=0.35)
+    plt.gca().xaxis.set_major_formatter(StrMethodFormatter("{x:,.4f}"))
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.show()
+
+
+print("\nHistorical scenario change check:")
+print(sector_summary[[
+    "prod_pct_change", "revenue_pct_change", "jobs_pct_change",
+    "prod_change", "revenue_change", "jobs_change"
+]].describe())
+print("\nNon-zero scenario changes:")
+print("Productivity:", (sector_summary["prod_pct_change"].fillna(0) != 0).sum())
+print("Revenue:", (sector_summary["revenue_pct_change"].fillna(0) != 0).sum())
+print("Jobs:", (sector_summary["jobs_pct_change"].fillna(0) != 0).sum())
+
+save_historical_scenario_barh(
+    sector_summary,
+    "short_label",
+    "prod_pct_change",
+    f"Top 15 Sectors: Productivity Impact from {historical_robots_multiplier}x Robots and {historical_training_hours_multiplier}x Training Hours",
+    "Productivity Change (%)",
+    "upgraded_chart_historical_productivity_impact.png"
+)
+
+save_historical_scenario_barh(
+    sector_summary,
+    "short_label",
+    "revenue_pct_change",
+    f"Top 15 Sectors: Revenue per Worker Impact from {historical_robots_multiplier}x Robots and {historical_training_hours_multiplier}x Training Hours",
+    "Revenue per Worker Change (%)",
+    "upgraded_chart_historical_revenue_impact.png"
+)
+
+# Chart 9 replacement: Historical job displacement impact
+# If percent change is blank or all zero, this falls back to absolute jobs_change.
+print("\nJobs displacement columns check:")
+print(sector_summary[["short_label", "avg_baseline_jobs", "avg_scenario_jobs", "jobs_change", "jobs_pct_change"]].head())
+print("\nNon-null jobs_pct_change rows:", sector_summary["jobs_pct_change"].notna().sum())
+print("Non-zero jobs_pct_change rows:", (sector_summary["jobs_pct_change"].fillna(0) != 0).sum())
+
+sector_summary["jobs_change"] = sector_summary["avg_scenario_jobs"] - sector_summary["avg_baseline_jobs"]
+sector_summary["jobs_pct_change"] = np.where(
+    sector_summary["avg_baseline_jobs"] != 0,
+    (sector_summary["jobs_change"] / sector_summary["avg_baseline_jobs"]) * 100,
+    np.nan
+)
+
+jobs_plot_df = sector_summary.dropna(subset=["short_label", "jobs_pct_change"]).copy()
+jobs_plot_df = jobs_plot_df[jobs_plot_df["jobs_pct_change"] != 0]
+
+if jobs_plot_df.empty:
+    print("jobs_pct_change has no usable values. Plotting jobs_change instead.")
+    jobs_plot_df = sector_summary.dropna(subset=["short_label", "jobs_change"]).copy()
+    jobs_plot_df = jobs_plot_df.sort_values("jobs_change", key=lambda s: s.abs(), ascending=False).head(15)
+    jobs_value_col = "jobs_change"
+    jobs_xlabel = "Jobs Displaced Change"
+    jobs_title = "Top 15 Sectors: Absolute Job Displacement Impact from Automation Scenario"
+    jobs_filename = "upgraded_chart_historical_jobs_displacement_impact_absolute.png"
+else:
+    jobs_plot_df = jobs_plot_df.sort_values("jobs_pct_change", key=lambda s: s.abs(), ascending=False).head(15)
+    jobs_value_col = "jobs_pct_change"
+    jobs_xlabel = "Jobs Displaced Change (%)"
+    jobs_title = "Top 15 Sectors: Job Displacement Impact from Automation Scenario"
+    jobs_filename = "upgraded_chart_historical_jobs_displacement_impact.png"
+
+if jobs_plot_df.empty:
+    print("No usable job displacement data found for Chart 9.")
+else:
+    plt.figure(figsize=(14, 8))
+    plt.barh(jobs_plot_df["short_label"][::-1], jobs_plot_df[jobs_value_col][::-1])
+    plt.xlabel(jobs_xlabel)
+    plt.title(jobs_title, fontsize=14, fontweight="bold")
+    plt.grid(axis="x", linestyle="--", alpha=0.35)
+    plt.gca().xaxis.set_major_formatter(StrMethodFormatter("{x:,.4f}"))
+    plt.tight_layout()
+    plt.savefig(jobs_filename, dpi=300, bbox_inches="tight")
+    plt.show()
+
+
+# Upgraded future projection charts
+save_barh(future_summary, "short_label", "avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (XGBoost) (Figure 3)", "Projected Productivity (1000s of hours)", "upgraded_chart_future_productivity_xgb.png")
+save_barh(future_summary, "short_label", "avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (XGBoost) (Figure 4)", "Projected Revenue per Worker ($1000)", "upgraded_chart_future_revenue_xgb.png")
+save_barh(future_summary, "short_label", "lgbm_avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (LightGBM) (Figure 5)", "Projected Productivity (1000s of hours)", "upgraded_chart_future_productivity_lgbm.png")
+save_barh(future_summary, "short_label", "lgbm_avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (LightGBM) (Figure 6)", "Projected Revenue per Worker (($1000))", "upgraded_chart_future_revenue_lgbm.png")
+
+
+# Upgraded feature importance charts
+save_barh(prod_importance, "feature", "importance", "Top Productivity Model Features (XGBoost) (Figure 7)", "Feature Importance", "upgraded_chart_productivity_feature_importance.png")
+save_barh(rev_importance, "feature", "importance", "Top Revenue Model Features (XGBoost) (Figure 8)", "Feature Importance", "upgraded_chart_revenue_feature_importance.png")
+save_barh(jobs_importance, "feature", "importance", "Top Jobs Displacement Model Features (XGBoost) (Figure 9)", "Feature Importance", "upgraded_chart_jobs_displacement_feature_importance.png")
+
 
 # Print summary info
 print("\nTOP 15 HISTORICAL AUTOMATION IMPACT")
 print(top15_hist[[
     "short_label",
     "prod_pct_change",
-    "revenue_pct_change"
+    "revenue_pct_change",
+    "jobs_pct_change"
 ]].to_string(index=False))
 
-print("\nTOP 15 FUTURE PRODUCTIVITY (2024-2027 AVG) (XGBoost)")
+print("\nTOP 15 FUTURE PRODUCTIVITY (2024-2027 AVG)")
 print(top15_future_prod[[
     "short_label",
     "avg_future_productivity"
 ]].to_string(index=False))
 
-print("\nTOP 15 FUTURE REVENUE (2024-2027 AVG) (XGBoost)")
+print("\nTOP 15 FUTURE REVENUE (2024-2027 AVG)")
 print(top15_future_rev[[
     "short_label",
     "avg_future_revenue"
+]].to_string(index=False))
+
+print("\nTOP 15 FUTURE JOBS DISPLACED (2024-2027 AVG)")
+print(top15_future_jobs[[
+    "short_label",
+    "avg_future_jobs_displaced"
 ]].to_string(index=False))
 
 print("\nTOP PRODUCTIVITY MODEL FEATURES")
@@ -877,8 +1209,13 @@ print(prod_importance.to_string(index=False))
 print("\nTOP REVENUE MODEL FEATURES")
 print(rev_importance.to_string(index=False))
 
+print("\nTOP JOBS DISPLACEMENT MODEL FEATURES")
+print(jobs_importance.to_string(index=False))
+
 print("\nPipeline complete.")
 print("Saved files:")
+print("- merged_dataset_full.csv")
+print("- final_cleaned_modeling_dataset.csv")
 print("- nber_naics_readable_mapping.csv")
 print("- historical_scenario_predictions_by_sector_year.csv")
 print("- historical_sector_summary.csv")
@@ -891,10 +1228,21 @@ print("- future_2024_2027_predictions_by_sector_year.csv")
 print("- future_2024_2027_sector_summary.csv")
 print("- top15_future_productivity.csv")
 print("- top15_future_revenue.csv")
+print("- top15_future_jobs_displaced.csv")
 print("- productivity_feature_importance.csv")
 print("- revenue_feature_importance.csv")
+print("- jobs_displaced_feature_importance.csv")
 print("- xgboost_model_metrics.csv")
+print("- model_comparison_xgb_vs_lgbm.csv")
+print("- lgbm_productivity_feature_importance.csv")
+print("- lgbm_revenue_feature_importance.csv")
+print("- lgbm_jobs_displaced_feature_importance.csv")
 print("- chart_1_historical_productivity_impact.png")
 print("- chart_2_historical_revenue_increase.png")
 print("- chart_3_projected_future_productivity.png")
 print("- chart_4_projected_future_revenue.png")
+print("- chart_model_comparison.png")
+print("- chart_feature_importance_comparison.png")
+print("- chart_7_projected_future_jobs_displaced.png")
+print("- chart_8_lgbm_projected_future_jobs_displaced.png")
+print("- chart_9_historical_jobs_displacement_impact.png")
