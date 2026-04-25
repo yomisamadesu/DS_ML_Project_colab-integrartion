@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05f6b16e-eaaf-4840-8caa-f10381083ac6" name="Changes" comment="Edited charts, included jobs displacement">
-      <change beforePath="$PROJECT_DIR$/DSML1/xgb1_lightgbm_comparison.py" beforeDir="false" afterPath="$PROJECT_DIR$/DSML1/xgb1_lightgbm_comparison.py" afterDir="false" />
-    </list>
+    <list default="true" id="05f6b16e-eaaf-4840-8caa-f10381083ac6" name="Changes" comment="300% more automation, 225% more training hour. Updated x-labels" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="xgbmodel" />
@@ -86,7 +85,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777062131394</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="300% more automation, 225% more training hour. Updated x-labels">
+      <option name="closed" value="true" />
+      <created>1777139981404</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1777139981404</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +121,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Edited charts, included jobs displacement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edited charts, included jobs displacement" />
+    <MESSAGE value="300% more automation, 225% more training hour. Updated x-labels" />
+    <option name="LAST_COMMIT_MESSAGE" value="300% more automation, 225% more training hour. Updated x-labels" />
   </component>
 </project>
