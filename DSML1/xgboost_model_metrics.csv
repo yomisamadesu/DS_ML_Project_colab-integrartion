@@ -1,0 +1,7 @@
+model,rmse,mae,r2,rows_used,observed_years_used,future_projection_years,forecast_style
+productivity,125.1715541102699,58.09190542474715,-0.002317473185825758,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+revenue_per_worker,109.6260082391416,66.37794310872752,0.8445611730568077,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+jobs_displaced,0.000885009765625,0.000885009765625,1.0,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+lgbm_productivity,74.04646635739569,49.45305986869498,0.6492459546893181,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+lgbm_revenue_per_worker,164.9146557097675,99.7228494287048,0.6482364676849867,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural
+lgbm_jobs_displaced,0.0008208441892065822,0.0008208441892065821,0.9999999994942502,728,2015-2016,2024-2027,nonlinear aggregate + sector-aware structural

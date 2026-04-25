@@ -680,11 +680,8 @@ plt.show()
 X_all = X.copy()
 scenario_all = X_all.copy()
 
-scenario_all["robots_adopted"] *= 1.50
-scenario_all["training_hours"] *= 1.25
-scenario_all["robots_adopted"] *= 1.50
-scenario_all["robotics_cost_savings"] *= 1.20
-
+scenario_all["robots_adopted"] *= 3.00
+scenario_all["training_hours"] *= 2.25
 
 baseline_prod = prod_model.predict(X_all)
 scenario_prod = prod_model.predict(scenario_all)
@@ -692,7 +689,7 @@ scenario_prod = prod_model.predict(scenario_all)
 baseline_rev = rev_model.predict(X_all)
 scenario_rev = rev_model.predict(scenario_all)
 
-# Jobs displaced scenario uses a feature matrix that excludes the target column.
+# Jobs displaced scenario uses a feature matrix that excludes the target column
 X_jobs_all = X_all[jobs_feature_cols].copy()
 scenario_jobs_all = scenario_all[jobs_feature_cols].copy()
 baseline_jobs = jobs_model.predict(X_jobs_all)
@@ -1045,8 +1042,8 @@ def save_grouped_metric_chart(comparison_df, metric, title, ylabel, filename):
     plt.show()
 
 # Upgraded historical scenario charts
-save_barh(sector_summary, "short_label", "prod_pct_change", "Top 15 Sectors: Productivity Impact from +10% Automation", "Productivity Change (%)", "upgraded_chart_historical_productivity_impact.png")
-save_barh(sector_summary, "short_label", "revenue_pct_change", "Top 15 Sectors: Revenue per Worker Impact from +10% Automation", "Revenue per Worker Change (%)", "upgraded_chart_historical_revenue_impact.png")
+save_barh(sector_summary, "short_label", "prod_pct_change", "Top 15 Sectors: Productivity Impact from +300% Automation", "Productivity Change (%)", "upgraded_chart_historical_productivity_impact.png")
+save_barh(sector_summary, "short_label", "revenue_pct_change", "Top 15 Sectors: Revenue per Worker Impact from +300% Automation", "Revenue per Worker Change (%)", "upgraded_chart_historical_revenue_impact.png")
 
 # Chart 9 replacement: Historical job displacement impact
 print("\nJobs displacement columns check:")
@@ -1064,10 +1061,10 @@ sector_summary["jobs_pct_change"] = np.where(
 
 
 # Upgraded future projection charts
-save_barh(future_summary, "short_label", "avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (XGBoost) (Figure 3)", "Projected Productivity", "upgraded_chart_future_productivity_xgb.png")
-save_barh(future_summary, "short_label", "avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (XGBoost) (Figure 4)", "Projected Revenue per Worker", "upgraded_chart_future_revenue_xgb.png")
-save_barh(future_summary, "short_label", "lgbm_avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (LightGBM) (Figure 5)", "Projected Productivity", "upgraded_chart_future_productivity_lgbm.png")
-save_barh(future_summary, "short_label", "lgbm_avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (LightGBM) (Figure 6)", "Projected Revenue per Worker", "upgraded_chart_future_revenue_lgbm.png")
+save_barh(future_summary, "short_label", "avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (XGBoost) (Figure 3)", "Projected Productivity (1000s of hours)", "upgraded_chart_future_productivity_xgb.png")
+save_barh(future_summary, "short_label", "avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (XGBoost) (Figure 4)", "Projected Revenue per Worker ($1000)", "upgraded_chart_future_revenue_xgb.png")
+save_barh(future_summary, "short_label", "lgbm_avg_future_productivity", "Projected Productivity by Sector, 2024-2027 Average (LightGBM) (Figure 5)", "Projected Productivity (1000s of hours)", "upgraded_chart_future_productivity_lgbm.png")
+save_barh(future_summary, "short_label", "lgbm_avg_future_revenue", "Projected Revenue per Worker by Sector, 2024-2027 Average (LightGBM) (Figure 6)", "Projected Revenue per Worker (($1000))", "upgraded_chart_future_revenue_lgbm.png")
 
 
 # Upgraded feature importance charts
@@ -1075,38 +1072,6 @@ save_barh(prod_importance, "feature", "importance", "Top Productivity Model Feat
 save_barh(rev_importance, "feature", "importance", "Top Revenue Model Features (XGBoost) (Figure 8)", "Feature Importance", "upgraded_chart_revenue_feature_importance.png")
 save_barh(jobs_importance, "feature", "importance", "Top Jobs Displacement Model Features (XGBoost) (Figure 9)", "Feature Importance", "upgraded_chart_jobs_displacement_feature_importance.png")
 
-# Productivity/job displacement trade-off chart
-tradeoff_df = sector_summary.dropna(subset=["prod_pct_change", "jobs_pct_change", "short_label"]).copy()
-tradeoff_df = tradeoff_df[(tradeoff_df["prod_pct_change"] != 0) & (tradeoff_df["jobs_pct_change"] != 0)]
-
-if tradeoff_df.empty:
-    print("No usable percent-change data for trade-off chart. Using jobs_change instead.")
-    tradeoff_df = sector_summary.dropna(subset=["prod_pct_change", "jobs_change", "short_label"]).copy()
-    tradeoff_df = tradeoff_df[(tradeoff_df["prod_pct_change"] != 0) & (tradeoff_df["jobs_change"] != 0)]
-    tradeoff_df = tradeoff_df.sort_values("jobs_change", ascending=False).head(15)
-    y_col = "jobs_change"
-    y_label = "Jobs Displaced Change"
-    filename = "upgraded_chart_productivity_vs_jobs_tradeoff_absolute.png"
-else:
-    tradeoff_df = tradeoff_df.sort_values("jobs_pct_change", ascending=False).head(15)
-    y_col = "jobs_pct_change"
-    y_label = "Jobs Displaced Change (%)"
-    filename = "upgraded_chart_productivity_vs_jobs_tradeoff.png"
-
-if tradeoff_df.empty:
-    print("No usable data for productivity vs jobs trade-off chart.")
-else:
-    plt.figure(figsize=(11, 7))
-    plt.scatter(tradeoff_df["prod_pct_change"], tradeoff_df[y_col])
-    for _, row in tradeoff_df.iterrows():
-        plt.text(row["prod_pct_change"], row[y_col], row["short_label"], fontsize=8)
-    plt.xlabel("Productivity Change (%)")
-    plt.ylabel(y_label)
-    plt.title("Automation Trade-off: Productivity Gains vs Job Displacement", fontsize=14, fontweight="bold")
-    plt.grid(True, linestyle="--", alpha=0.35)
-    plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches="tight")
-    plt.show()
 
 # Print summary info
 print("\nTOP 15 HISTORICAL AUTOMATION IMPACT")
