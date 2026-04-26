@@ -1,3 +1,7 @@
+**This project was coded in Python and requires the following dependency installation**
+
+`pip install pandas numpy matplotlib xgboost lightgbm scikit-learn openpyxl`
+
 Predictive Analysis of Automation in U.S. Manufacturing
 XGBoost vs LightGBM | Productivity and Revenue
 **Overview**
