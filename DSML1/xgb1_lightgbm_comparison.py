@@ -680,8 +680,8 @@ plt.show()
 X_all = X.copy()
 scenario_all = X_all.copy()
 
-scenario_all["robots_adopted"] *= 3.00
-scenario_all["training_hours"] *= 2.25
+scenario_all["robots_adopted"] *= 4.00
+scenario_all["training_hours"] *= 2.00
 
 baseline_prod = prod_model.predict(X_all)
 scenario_prod = prod_model.predict(scenario_all)
@@ -893,7 +893,18 @@ for col in feature_cols:
 future_df[feature_cols] = future_df.groupby("naics")[feature_cols].transform(lambda s: s.ffill().bfill())
 future_df[feature_cols] = future_df[feature_cols].ffill().bfill()
 
+# Apply future automation scenario to 2024-2027 predictions
+future_df["robots_adopted"] *= 2.00
+future_df["training_hours"] *= 4.00
+future_df["robotics_productivity_gain"] *= 1.50
+future_df["robotics_cost_savings"] *= 1.50
+
 # 2024 - 2027 Prediction
+# Apply future automation scenario to 2024-2027 predictions
+future_df["robots_adopted"] *= 5.00
+future_df["training_hours"] *= 4.00
+future_df["robotics_productivity_gain"] *= 2.50
+future_df["robotics_cost_savings"] *= 2.25
 future_X = pd.DataFrame(index=future_df.index)
 for col in feature_cols:
     future_X[col] = pd.to_numeric(future_df[col], errors="coerce")
@@ -1041,9 +1052,9 @@ def save_grouped_metric_chart(comparison_df, metric, title, ylabel, filename):
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     plt.show()
 
-# Upgraded historical scenario charts
-save_barh(sector_summary, "short_label", "prod_pct_change", "Top 15 Sectors: Productivity Impact from +300% Automation", "Productivity Change (%)", "upgraded_chart_historical_productivity_impact.png")
-save_barh(sector_summary, "short_label", "revenue_pct_change", "Top 15 Sectors: Revenue per Worker Impact from +300% Automation", "Revenue per Worker Change (%)", "upgraded_chart_historical_revenue_impact.png")
+# historical scenario charts
+save_barh(sector_summary, "short_label", "prod_pct_change", "Top 15 Sectors: Productivity Impact from +400% Automation", "Productivity Change (%)", "upgraded_chart_historical_productivity_impact.png")
+save_barh(sector_summary, "short_label", "revenue_pct_change", "Top 15 Sectors: Revenue per Worker Impact from +400% Automation", "Revenue per Worker Change (%)", "upgraded_chart_historical_revenue_impact.png")
 
 # Chart 9 replacement: Historical job displacement impact
 print("\nJobs displacement columns check:")
