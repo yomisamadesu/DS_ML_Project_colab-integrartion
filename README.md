@@ -77,13 +77,13 @@ Macroeconomic Variables
 18. Predict sector outcomes for 2024–2027
 19. Uses hybrid nonlinear + sector-aware forecasting 
 
-Key Results
+**Key Results**
 Model Performance
-Model	Target	R² Score
-XGBoost	Productivity	Low / Negative
-LightGBM	Productivity	High
-XGBoost	Revenue per Worker	High
-LightGBM	Revenue per Worker	Moderate
+* Model	Target	R² Score
+* XGBoost	Productivity	Low / Negative
+* LightGBM	Productivity	High
+* XGBoost	Revenue per Worker	High
+* LightGBM	Revenue per Worker	Moderate
 
 **Insights**
 * Capital-labor ratio is the strongest predictor
