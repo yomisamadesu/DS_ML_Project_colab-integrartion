@@ -78,6 +78,7 @@ Macroeconomic Variables
 19. Uses hybrid nonlinear + sector-aware forecasting 
 
 **Key Results**
+
 Model Performance
 * Model	Target	R² Score
 * XGBoost	Productivity	Low / Negative
