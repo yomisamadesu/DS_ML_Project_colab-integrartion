@@ -4,6 +4,7 @@
 
 Predictive Analysis of Automation in U.S. Manufacturing
 XGBoost vs LightGBM | Productivity and Revenue
+
 **Overview**
 This project analyzes the impact of industrial robotics and automation on U.S. manufacturing sectors using machine learning. It builds predictive models to estimate:
 * Labor Productivity
