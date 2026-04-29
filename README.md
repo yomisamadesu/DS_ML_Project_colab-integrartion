@@ -37,6 +37,7 @@ The dataset is built from multiple sources:
 * North American Industry Classification System [Manufacturing Industry Code Dataset] (https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.naics.com/wp-content/uploads/2022/05/2022-NAICS-Codes-listed-numerically-2-Digit-through-6-Digit.xlsx&ved=2ahUKEwj7w9KMkIyUAxXkxckDHU9eHVsQFnoECBcQAQ&usg=AOvVaw36SrAtuwxw3XQbG-lOpnST)
 
 **Features**
+
 Key features include:
 * Structural Variables
 * Capital stock, plant, equipment, investment
