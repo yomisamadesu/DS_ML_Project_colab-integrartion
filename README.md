@@ -2,11 +2,11 @@
 
 `pip install pandas numpy matplotlib xgboost lightgbm scikit-learn scipy openpyxl`
 
-Predictive Analysis of Automation in U.S. Manufacturing
+Predictive Analysis of Automation in U.S. Manufacturing utilizing tree-based modeling
 XGBoost vs LightGBM | Productivity and Revenue
 
 **Overview**
-This project analyzes the impact of industrial robotics and automation on U.S. manufacturing sectors using machine learning. It builds predictive models to estimate:
+* This project analyzes the impact of industrial robotics and automation on U.S. manufacturing sectors using machine learning. It builds predictive models to estimate:
 * Labor Productivity
 * Revenue per Worker
 
