@@ -72,7 +72,7 @@ Macroeconomic Variables
 9. Group-based split by NAICS sector
 10. Prevents data leakage across industries
 11. Model Training
-12. XGBoost and LightGBM trained separately
+12. Random Forest, XGBoost and LightGBM trained separately
 13. Evaluated using RMSE, MAE, R²
 14. Scenario Analysis
 15. Simulate increased automation
